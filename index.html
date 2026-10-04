@@ -3,119 +3,188 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ranking de Afiliados y Ganancias - D'UNIG</title>
+    <title>Ecosistema D'UNIG | Red de Afiliados y Ganancias</title>
     <!-- Importar Supabase JS Client -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <style>
         :root {
-            --bg-color: #0f172a;
-            --card-bg: #1e293b;
-            --text-color: #f8fafc;
-            --accent-color: #38bdf8;
-            --border-color: #334155;
-            --success-color: #4ade80;
+            --bg-color: #050505;
+            --card-bg: #121212;
+            --card-border: #262626;
+            --text-color: #ededed;
+            --text-muted: #a3a3a3;
+            --accent-orange: #ff6600;
+            --accent-orange-glow: rgba(255, 102, 0, 0.25);
+            --success-color: #00ff66;
         }
+        
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
             background-color: var(--bg-color);
             color: var(--text-color);
             margin: 0;
             padding: 20px;
+            background-image: radial-gradient(circle at 50% 0%, #1a0a00 0%, var(--bg-color) 70%);
+            min-height: 100vh;
         }
+
         .container {
-            max-width: 1000px;
+            max-width: 650px;
             margin: 0 auto;
+            padding-bottom: 40px;
         }
+
+        header {
+            text-align: center;
+            margin-bottom: 35px;
+            padding-top: 15px;
+        }
+
         h2 {
-            text-align: center;
-            color: var(--accent-color);
-            margin-bottom: 30px;
-        }
-        .table-container {
-            background-color: var(--card-bg);
-            border-radius: 12px;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
-            overflow-x: auto;
-            border: 1px solid var(--border-color);
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            text-align: left;
-        }
-        th, td {
-            padding: 14px 18px;
-            border-bottom: 1px solid var(--border-color);
-        }
-        th {
-            background-color: #0f172a;
-            color: var(--accent-color);
-            font-weight: 600;
+            color: var(--accent-orange);
+            font-size: 1.8rem;
             text-transform: uppercase;
-            font-size: 0.85rem;
-            letter-spacing: 0.05em;
+            letter-spacing: 2px;
+            margin: 0 0 10px 0;
+            text-shadow: 0 0 15px var(--accent-orange-glow);
         }
-        tr:hover {
-            background-color: rgba(56, 189, 248, 0.05);
+
+        .subtitle {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            letter-spacing: 1px;
         }
+
+        /* Contenedor en lista vertical hacia abajo */
+        #lista-afiliados {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        /* Tarjeta futurista individual */
+        .afiliado-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-left: 4px solid var(--accent-orange);
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
+            transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .afiliado-card:hover {
+            transform: translateY(-2px);
+            border-color: var(--accent-orange);
+            box-shadow: 0 12px 30px var(--accent-orange-glow);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+            border-bottom: 1px solid #1f1f1f;
+            padding-bottom: 10px;
+        }
+
+        .afiliado-nombre {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: #ffffff;
+            letter-spacing: 0.5px;
+        }
+
         .badge-codigo {
-            background-color: rgba(56, 189, 248, 0.15);
-            color: var(--accent-color);
-            padding: 4px 8px;
-            border-radius: 6px;
+            background-color: rgba(255, 102, 0, 0.1);
+            color: var(--accent-orange);
+            border: 1px solid rgba(255, 102, 0, 0.3);
+            padding: 4px 10px;
+            border-radius: 20px;
             font-family: monospace;
-            font-weight: bold;
+            font-weight: 700;
+            font-size: 0.85rem;
         }
-        .comision {
+
+        .card-body {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            font-size: 0.9rem;
+        }
+
+        .info-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .info-label {
+            color: var(--text-muted);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 3px;
+        }
+
+        .info-value {
+            color: var(--text-color);
+            font-weight: 600;
+        }
+
+        .comision-value {
             color: var(--success-color);
-            font-weight: bold;
-        }
-        .loading {
-            text-align: center;
-            padding: 40px;
             font-size: 1.1rem;
-            color: #94a3b8;
+            font-weight: 800;
+            text-shadow: 0 0 10px rgba(0, 255, 102, 0.2);
+        }
+
+        .loading, .mensaje-vacio {
+            text-align: center;
+            padding: 50px;
+            color: var(--text-muted);
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 12px;
+            font-size: 1rem;
+        }
+
+        .mensaje-error {
+            color: #ff4444;
+            background: rgba(255, 68, 68, 0.1);
+            border: 1px solid rgba(255, 68, 68, 0.3);
         }
     </style>
 </head>
 <body>
 
     <div class="container">
-        <h2>📊 Reporte de Afiliados y Comisiones</h2>
+        <header>
+            <h2>D'UNIG LUXURY</h2>
+            <div class="subtitle">Panel de Rendimiento y Ganancias de Afiliados</div>
+        </header>
         
-        <div class="table-container">
-            <div id="loading" class="loading">Cargando datos del ecosistema...</div>
-            <table id="tabla-afiliados" style="display: none;">
-                <thead>
-                    <tr>
-                        <th>Afiliado</th>
-                        <th>Ciudad</th>
-                        <th>Código VIP</th>
-                        <th>Órdenes Referidas</th>
-                        <th>Ganancias Totales</th>
-                    </tr>
-                </thead>
-                <tbody id="tbody-afiliados">
-                    <!-- Los datos se inyectarán aquí mediante JavaScript -->
-                </tbody>
-            </table>
+        <div id="loading" class="loading">Sincronizando con el ecosistema Supabase...</div>
+        
+        <div id="lista-afiliados">
+            <!-- Las tarjetas verticales se inyectarán aquí automáticamente -->
         </div>
     </div>
 
     <script>
-        // Configura tus credenciales de Supabase
-        const SUPABASE_URL = 'https://mkewwlmeikixpvfayisj.supabase.co'; // Reemplaza con tu URL de Supabase
-        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1rZXd3bG1laWtpeHB2ZmF5aXNqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODk3Mzg5NTAsImV4cCI6MjEwNTMxNDk1MH0.xUm7b8j4EGjHtsrBP9DgBURKRhrsPwOxhwKLCAMxZ1o'; // Reemplaza con tu Key Anon Publica
+        // Tus credenciales oficiales de Supabase
+        const SUPABASE_URL = 'https://mkewwlmeikixpvfayisj.supabase.co';
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1rZXd3bG1laWtpeHB2ZmF5aXNqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODk3Mzg5NTAsImV4cCI6MjEwNTMxNDk1MH0.xUm7b8j4EGjHtsrBP9DgBURKRhrsPwOxhwKLCAMxZ1o';
 
         const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
         async function cargarAfiliadosGanancias() {
+            const containerEl = document.getElementById('lista-afiliados');
             const loadingEl = document.getElementById('loading');
-            const tablaEl = document.getElementById('tabla-afiliados');
-            const tbodyEl = document.getElementById('tbody-afiliados');
 
             try {
-                // Consultamos la vista de Supabase
+                // Consultamos directamente la vista creada en Supabase
                 const { data, error } = await supabaseClient
                     .from('vista_afiliados_ganancias')
                     .select('*')
@@ -126,34 +195,53 @@
                 }
 
                 loadingEl.style.display = 'none';
-                tablaEl.style.display = 'table';
-                tbodyEl.innerHTML = '';
+                containerEl.innerHTML = '';
 
-                if (data.length === 0) {
-                    tbodyEl.innerHTML = `<tr><td colspan="5" style="text-align: center; color: #94a3b8;">No hay registros de afiliados aún.</td></tr>`;
+                if (!data || data.length === 0) {
+                    containerEl.innerHTML = `<div class="mensaje-vacio">No se encontraron registros de afiliados activos en la red.</div>`;
                     return;
                 }
 
-                // Pintar los datos en la tabla (omitiendo cédula y teléfono de forma segura en el front)
+                // Generar tarjetas verticales hacia abajo para cada afiliado
                 data.forEach(afiliado => {
-                    const fila = document.createElement('tr');
-                    fila.innerHTML = `
-                        <td><strong>${afiliado.nombre}</strong></td>
-                        <td>${afiliado.ciudad || 'No especificada'}</td>
-                        <td><span class="badge-codigo">${afiliado.codigo_referido}</span></td>
-                        <td>${afiliado.total_ordenes_referidas}</td>
-                        <td class="comision">$${Number(afiliado.total_comisiones_acumuladas).toFixed(2)}</td>
+                    const card = document.createElement('div');
+                    card.className = 'afiliado-card';
+                    
+                    const ciudadTexto = afiliado.ciudad || 'No especificada';
+                    const totalOrdenes = afiliado.total_ordenes_referidas || 0;
+                    const totalGanancias = Number(afiliado.total_comisiones_acumuladas || 0).toFixed(2);
+
+                    card.innerHTML = `
+                        <div class="card-header">
+                            <span class="afiliado-nombre">${afiliado.nombre}</span>
+                            <span class="badge-codigo">${afiliado.codigo_referido}</span>
+                        </div>
+                        <div class="card-body">
+                            <div class="info-group">
+                                <span class="info-label">Ubicación</span>
+                                <span class="info-value">${ciudadTexto}</span>
+                            </div>
+                            <div class="info-group">
+                                <span class="info-label">Órdenes Referidas</span>
+                                <span class="info-value">${totalOrdenes}</span>
+                            </div>
+                            <div class="info-group" style="grid-column: span 2; margin-top: 6px;">
+                                <span class="info-label">Ganancias Totales Acumuladas</span>
+                                <span class="comision-value">$${totalGanancias}</span>
+                            </div>
+                        </div>
                     `;
-                    tbodyEl.appendChild(fila);
+                    containerEl.appendChild(card);
                 });
 
             } catch (err) {
-                console.error('Error al cargar la vista:', err.message);
-                loadingEl.innerHTML = `<span style="color: #ef4444;">Error al cargar los datos de la red.</span>`;
+                console.error('Error al conectar con Supabase:', err.message);
+                loadingEl.style.display = 'none';
+                containerEl.innerHTML = `<div class="mensaje-vacio mensaje-error">Error de conexión: No se pudieron cargar los datos de la red. Revisa la consola.</div>`;
             }
         }
 
-        // Ejecutar al cargar la página
+        // Ejecutar la carga al iniciar la interfaz
         cargarAfiliadosGanancias();
     </script>
 </body>
