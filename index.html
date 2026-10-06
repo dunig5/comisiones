@@ -36,7 +36,7 @@
 
         header {
             text-align: center;
-            margin-bottom: 35px;
+            margin-bottom: 25px;
             padding-top: 15px;
         }
 
@@ -53,6 +53,96 @@
             color: var(--text-muted);
             font-size: 0.9rem;
             letter-spacing: 1px;
+        }
+
+        /* Portada / Banner de Anuncios de Bonos */
+        .banner-bonos {
+            background: linear-gradient(135deg, rgba(255, 102, 0, 0.15) 0%, rgba(18, 18, 18, 0.9) 100%);
+            border: 1px solid rgba(255, 102, 0, 0.4);
+            border-radius: 14px;
+            padding: 20px;
+            margin-bottom: 25px;
+            box-shadow: 0 8px 25px var(--accent-orange-glow);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .banner-bonos::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background-color: var(--accent-orange);
+        }
+
+        .banner-titulo {
+            color: #ffffff;
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .banner-texto {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            line-height: 1.4;
+            margin: 0;
+        }
+
+        /* Controles superiores (Buscador y Botón Actualizar) */
+        .controls-wrapper {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 25px;
+        }
+
+        .search-box {
+            flex: 1;
+            background-color: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 10px;
+            padding: 12px 16px;
+            color: var(--text-color);
+            font-size: 0.95rem;
+            outline: none;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        .search-box:focus {
+            border-color: var(--accent-orange);
+            box-shadow: 0 0 10px var(--accent-orange-glow);
+        }
+
+        .btn-actualizar {
+            background-color: rgba(255, 102, 0, 0.15);
+            color: var(--accent-orange);
+            border: 1px solid rgba(255, 102, 0, 0.4);
+            border-radius: 10px;
+            padding: 0 20px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            white-space: nowrap;
+        }
+
+        .btn-actualizar:hover {
+            background-color: var(--accent-orange);
+            color: #ffffff;
+            box-shadow: 0 0 15px var(--accent-orange-glow);
+            transform: translateY(-1px);
+        }
+
+        .btn-actualizar:active {
+            transform: translateY(0);
         }
 
         /* Contenedor en lista vertical hacia abajo */
@@ -161,9 +251,27 @@
 
     <div class="container">
         <header>
-            <h2>D'UNIG LUXURY</h2>
+            <h2>D'UNIG SHOP</h2>
             <div class="subtitle">Panel de Rendimiento y Ganancias de Afiliados</div>
         </header>
+
+        <!-- Portada / Anuncio de Bonos por Mayor Esfuerzo -->
+        <div class="banner-bonos">
+            <div class="banner-titulo">
+                🔥 Bonos Especiales D'UNIG
+            </div>
+            <p class="banner-texto">
+                ¡Recompensamos tu compromiso! Los referidos con mayor esfuerzo y volumen de órdenes de venta obtienen bonificaciones adicionales semanales y comisiones escaladas. ¡Sigue impulsando la red!
+            </p>
+        </div>
+
+        <!-- Controles: Buscador y Botón Actualizar -->
+        <div class="controls-wrapper">
+            <input type="text" id="input-buscar" class="search-box" placeholder="Buscar por nombre o código..." oninput="filtrarAfiliados()">
+            <button class="btn-actualizar" onclick="cargarAfiliadosGanancias()">
+                🔄 Actualizar
+            </button>
+        </div>
         
         <div id="loading" class="loading">Sincronizando con el ecosistema Supabase...</div>
         
@@ -179,9 +287,18 @@
 
         const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
+        // Variable global para almacenar los datos de afiliados obtenidos
+        let afiliadosGlobal = [];
+
         async function cargarAfiliadosGanancias() {
             const containerEl = document.getElementById('lista-afiliados');
             const loadingEl = document.getElementById('loading');
+            const btnActualizar = document.querySelector('.btn-actualizar');
+
+            // Feedback visual en el botón durante la recarga
+            btnActualizar.style.opacity = '0.6';
+            loadingEl.style.display = 'block';
+            containerEl.innerHTML = '';
 
             try {
                 // Consultamos directamente la vista creada en Supabase
@@ -194,51 +311,73 @@
                     throw error;
                 }
 
+                afiliadosGlobal = data || [];
                 loadingEl.style.display = 'none';
-                containerEl.innerHTML = '';
+                btnActualizar.style.opacity = '1';
 
-                if (!data || data.length === 0) {
-                    containerEl.innerHTML = `<div class="mensaje-vacio">No se encontraron registros de afiliados activos en la red.</div>`;
-                    return;
-                }
-
-                // Generar tarjetas verticales hacia abajo para cada afiliado
-                data.forEach(afiliado => {
-                    const card = document.createElement('div');
-                    card.className = 'afiliado-card';
-                    
-                    const ciudadTexto = afiliado.ciudad || 'No especificada';
-                    const totalOrdenes = afiliado.total_ordenes_referidas || 0;
-                    const totalGanancias = Number(afiliado.total_comisiones_acumuladas || 0).toFixed(2);
-
-                    card.innerHTML = `
-                        <div class="card-header">
-                            <span class="afiliado-nombre">${afiliado.nombre}</span>
-                            <span class="badge-codigo">${afiliado.codigo_referido}</span>
-                        </div>
-                        <div class="card-body">
-                            <div class="info-group">
-                                <span class="info-label">Ubicación</span>
-                                <span class="info-value">${ciudadTexto}</span>
-                            </div>
-                            <div class="info-group">
-                                <span class="info-label">Órdenes Referidas</span>
-                                <span class="info-value">${totalOrdenes}</span>
-                            </div>
-                            <div class="info-group" style="grid-column: span 2; margin-top: 6px;">
-                                <span class="info-label">Ganancias Totales Acumuladas</span>
-                                <span class="comision-value">$${totalGanancias}</span>
-                            </div>
-                        </div>
-                    `;
-                    containerEl.appendChild(card);
-                });
+                renderizarAfiliados(afiliadosGlobal);
 
             } catch (err) {
                 console.error('Error al conectar con Supabase:', err.message);
                 loadingEl.style.display = 'none';
+                btnActualizar.style.opacity = '1';
                 containerEl.innerHTML = `<div class="mensaje-vacio mensaje-error">Error de conexión: No se pudieron cargar los datos de la red. Revisa la consola.</div>`;
             }
+        }
+
+        function renderizarAfiliados(data) {
+            const containerEl = document.getElementById('lista-afiliados');
+            containerEl.innerHTML = '';
+
+            if (!data || data.length === 0) {
+                containerEl.innerHTML = `<div class="mensaje-vacio">No se encontraron registros de afiliados activos en la red.</div>`;
+                return;
+            }
+
+            // Generar tarjetas verticales hacia abajo para cada afiliado
+            data.forEach(afiliado => {
+                const card = document.createElement('div');
+                card.className = 'afiliado-card';
+                
+                const ciudadTexto = afiliado.ciudad || 'No especificada';
+                const totalOrdenes = afiliado.total_ordenes_referidas || 0;
+                const totalGanancias = Number(afiliado.total_comisiones_acumuladas || 0).toFixed(2);
+
+                card.innerHTML = `
+                    <div class="card-header">
+                        <span class="afiliado-nombre">${afiliado.nombre}</span>
+                        <span class="badge-codigo">${afiliado.codigo_referido}</span>
+                    </div>
+                    <div class="card-body">
+                        <div class="info-group">
+                            <span class="info-label">Ubicación</span>
+                            <span class="info-value">${ciudadTexto}</span>
+                        </div>
+                        <div class="info-group">
+                            <span class="info-label">Órdenes Referidas</span>
+                            <span class="info-value">${totalOrdenes}</span>
+                        </div>
+                        <div class="info-group" style="grid-column: span 2; margin-top: 6px;">
+                            <span class="info-label">Ganancias Totales Acumuladas</span>
+                            <span class="comision-value">$${totalGanancias}</span>
+                        </div>
+                    </div>
+                `;
+                containerEl.appendChild(card);
+            });
+        }
+
+        // Función para filtrar en tiempo real por nombre o código
+        function filtrarAfiliados() {
+            const textoBusqueda = document.getElementById('input-buscar').value.toLowerCase().trim();
+            
+            const filtrados = afiliadosGlobal.filter(afiliado => {
+                const nombreMatch = afiliado.nombre && afiliado.nombre.toLowerCase().includes(textoBusqueda);
+                const codigoMatch = afiliado.codigo_referido && afiliado.codigo_referido.toLowerCase().includes(textoBusqueda);
+                return nombreMatch || codigoMatch;
+            });
+
+            renderizarAfiliados(filtrados);
         }
 
         // Ejecutar la carga al iniciar la interfaz
