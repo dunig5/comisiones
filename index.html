@@ -31,31 +31,34 @@
             background-color: var(--bg-color);
             color: var(--text-color);
             margin: 0;
-            padding: 20px;
+            padding: 0; /* Sin padding general para que la portada toque los bordes */
             background-image: radial-gradient(circle at 50% 0%, #1a0a00 0%, var(--bg-color) 70%);
             min-height: 100vh;
         }
 
         .container {
-            max-width: 650px;
-            margin: 0 auto;
-            padding-bottom: 40px;
+            width: 100%;
+            margin: 0;
+            padding: 0 0 40px 0;
+            box-sizing: border-box;
         }
 
-        /* Cabecera / Portada con GIF sin marco */
+        /* Cabecera / Portada sin espacios laterales de lado a lado */
         header {
             text-align: center;
             margin-bottom: 25px;
-            padding: 35px 20px;
+            padding: 45px 20px;
             border-radius: 0;
             position: relative;
             overflow: hidden;
             border: none;
             box-shadow: none;
             background: transparent;
+            width: 100%;
+            box-sizing: border-box;
         }
 
-        /* Fondo con GIF animado sin bordes ni marcos */
+        /* Fondo con GIF animado de borde a borde sin márgenes */
         header::before {
             content: '';
             position: absolute;
@@ -75,7 +78,7 @@
 
         h2 {
             color: var(--accent-orange);
-            font-size: 2rem;
+            font-size: 2.2rem;
             text-transform: uppercase;
             letter-spacing: 2.5px;
             margin: 0 0 8px 0;
@@ -84,21 +87,32 @@
 
         .subtitle {
             color: var(--text-muted);
-            font-size: 0.95rem;
+            font-size: 1rem;
             letter-spacing: 1.2px;
             text-shadow: 0 1px 3px rgba(0,0,0,0.9);
         }
 
-        /* Podio general */
+        /* Contenedor interno para dar espacio estético controlado en el contenido principal */
+        .content-wrapper {
+            padding: 0 16px;
+            width: 100%;
+            box-sizing: border-box;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        /* Podio general de lado a lado del contenedor */
         .podium-container {
             background: rgba(18, 18, 18, 0.92);
             border: 1px solid var(--card-border);
-            border-radius: 16px;
+            border-radius: 12px;
             padding: 22px;
             margin-bottom: 25px;
             box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6);
             position: relative;
             overflow: hidden;
+            width: 100%;
+            box-sizing: border-box;
         }
 
         .podium-title {
@@ -120,64 +134,67 @@
             display: grid;
             grid-template-columns: 1fr;
             gap: 12px;
+            width: 100%;
         }
 
         /* Tarjetas de Podio Individuales (Oro, Plata, Bronce) */
         .podium-card {
             background: rgba(20, 20, 20, 0.85);
             border-radius: 10px;
-            padding: 14px 16px;
+            padding: 16px 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
             transition: transform 0.2s;
+            width: 100%;
+            box-sizing: border-box;
         }
 
         .podium-card:hover {
-            transform: scale(1.02);
+            transform: scale(1.01);
         }
 
         /* Estilo 1er Lugar: Oro */
         .podium-card.gold {
-            border: 1px solid rgba(255, 215, 0, 0.5);
+            border: 1px solid rgba(255, 215, 0, 0.6);
             border-left: 6px solid var(--gold-color);
-            background: linear-gradient(135deg, rgba(50, 40, 5, 0.4) 0%, rgba(20, 20, 20, 0.9) 100%);
-            box-shadow: 0 0 20px var(--gold-glow);
+            background: linear-gradient(135deg, rgba(60, 45, 5, 0.5) 0%, rgba(20, 20, 20, 0.95) 100%);
+            box-shadow: 0 0 25px var(--gold-glow);
         }
         .podium-card.gold .podium-rank { color: var(--gold-color); }
         .podium-card.gold .podium-badge-codigo {
-            background-color: rgba(255, 215, 0, 0.12);
+            background-color: rgba(255, 215, 0, 0.15);
             color: var(--gold-color);
-            border: 1px solid rgba(255, 215, 0, 0.35);
+            border: 1px solid rgba(255, 215, 0, 0.4);
         }
 
         /* Estilo 2do Lugar: Plata */
         .podium-card.silver {
-            border: 1px solid rgba(224, 224, 224, 0.4);
+            border: 1px solid rgba(224, 224, 224, 0.5);
             border-left: 6px solid var(--silver-color);
-            background: linear-gradient(135deg, rgba(40, 40, 40, 0.4) 0%, rgba(20, 20, 20, 0.9) 100%);
-            box-shadow: 0 0 15px var(--silver-glow);
+            background: linear-gradient(135deg, rgba(50, 50, 50, 0.5) 0%, rgba(20, 20, 20, 0.95) 100%);
+            box-shadow: 0 0 20px var(--silver-glow);
         }
         .podium-card.silver .podium-rank { color: var(--silver-color); }
         .podium-card.silver .podium-badge-codigo {
-            background-color: rgba(224, 224, 224, 0.1);
+            background-color: rgba(224, 224, 224, 0.12);
             color: var(--silver-color);
-            border: 1px solid rgba(224, 224, 224, 0.3);
+            border: 1px solid rgba(224, 224, 224, 0.35);
         }
 
         /* Estilo 3er Lugar: Bronce */
         .podium-card.bronze {
-            border: 1px solid rgba(205, 127, 50, 0.4);
+            border: 1px solid rgba(205, 127, 50, 0.5);
             border-left: 6px solid var(--bronze-color);
-            background: linear-gradient(135deg, rgba(50, 25, 10, 0.4) 0%, rgba(20, 20, 20, 0.9) 100%);
-            box-shadow: 0 0 15px var(--bronze-glow);
+            background: linear-gradient(135deg, rgba(60, 30, 10, 0.5) 0%, rgba(20, 20, 20, 0.95) 100%);
+            box-shadow: 0 0 20px var(--bronze-glow);
         }
         .podium-card.bronze .podium-rank { color: var(--bronze-color); }
         .podium-card.bronze .podium-badge-codigo {
-            background-color: rgba(205, 127, 50, 0.1);
+            background-color: rgba(205, 127, 50, 0.12);
             color: var(--bronze-color);
-            border: 1px solid rgba(205, 127, 50, 0.3);
+            border: 1px solid rgba(205, 127, 50, 0.35);
         }
 
         .podium-info {
@@ -187,7 +204,7 @@
         }
 
         .podium-rank {
-            font-size: 0.75rem;
+            font-size: 0.8rem;
             font-weight: 800;
             text-transform: uppercase;
             letter-spacing: 1px;
@@ -196,21 +213,21 @@
         .podium-main-info {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
         }
 
         .podium-name {
-            font-size: 1.05rem;
+            font-size: 1.15rem;
             font-weight: 700;
             color: #ffffff;
         }
 
         .podium-badge-codigo {
-            padding: 2px 8px;
+            padding: 3px 10px;
             border-radius: 12px;
             font-family: monospace;
             font-weight: 700;
-            font-size: 0.8rem;
+            font-size: 0.85rem;
         }
 
         .podium-stats {
@@ -222,21 +239,23 @@
 
         .podium-earnings {
             color: #00ff88;
-            font-size: 1.1rem;
+            font-size: 1.2rem;
             font-weight: 900;
             text-shadow: 0 0 8px rgba(0, 255, 136, 0.3);
         }
 
-        /* Portada / Anuncio de Bonos por Mayor Esfuerzo */
+        /* Banner de Bonos de lado a lado */
         .banner-bonos {
             background: linear-gradient(135deg, rgba(255, 102, 0, 0.15) 0%, rgba(18, 18, 18, 0.9) 100%);
             border: 1px solid rgba(255, 102, 0, 0.4);
-            border-radius: 14px;
+            border-radius: 12px;
             padding: 20px;
             margin-bottom: 25px;
             box-shadow: 0 8px 25px var(--accent-orange-glow);
             position: relative;
             overflow: hidden;
+            width: 100%;
+            box-sizing: border-box;
         }
 
         .banner-bonos::before {
@@ -244,14 +263,14 @@
             position: absolute;
             top: 0;
             left: 0;
-            width: 4px;
+            width: 5px;
             height: 100%;
             background-color: var(--accent-orange);
         }
 
         .banner-titulo {
             color: #ffffff;
-            font-size: 1.1rem;
+            font-size: 1.15rem;
             font-weight: 700;
             margin-bottom: 6px;
             display: flex;
@@ -261,17 +280,19 @@
 
         .banner-texto {
             color: var(--text-muted);
-            font-size: 0.85rem;
+            font-size: 0.9rem;
             line-height: 1.4;
             margin: 0;
         }
 
-        /* Controles superiores (Buscador y Botón con Moneda Giratoria) */
+        /* Controles superiores (Buscador y Botón con Moneda Dorada Giratoria) */
         .controls-wrapper {
             display: flex;
             gap: 12px;
             margin-bottom: 25px;
             align-items: center;
+            width: 100%;
+            box-sizing: border-box;
         }
 
         .search-box {
@@ -279,9 +300,9 @@
             background-color: var(--card-bg);
             border: 1px solid var(--card-border);
             border-radius: 10px;
-            padding: 12px 16px;
+            padding: 14px 18px;
             color: var(--text-color);
-            font-size: 0.95rem;
+            font-size: 1rem;
             outline: none;
             transition: border-color 0.2s, box-shadow 0.2s;
         }
@@ -297,9 +318,9 @@
             color: var(--gold-color);
             border: 1px solid rgba(255, 215, 0, 0.4);
             border-radius: 10px;
-            padding: 10px 18px;
+            padding: 12px 20px;
             font-weight: 700;
-            font-size: 0.9rem;
+            font-size: 0.95rem;
             cursor: pointer;
             transition: all 0.2s ease;
             display: flex;
@@ -321,15 +342,15 @@
 
         /* Animación de la moneda dorada 3D */
         .spinning-coin {
-            width: 22px;
-            height: 22px;
+            width: 24px;
+            height: 24px;
             background: radial-gradient(circle at 30% 30%, #fff6a1 0%, #ffd700 50%, #b8860b 100%);
             border: 1px solid #ffea75;
             border-radius: 50%;
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            font-size: 11px;
+            font-size: 12px;
             font-weight: 900;
             color: #5c4000;
             box-shadow: inset 0 1px 2px rgba(255,255,255,0.8), 0 2px 5px rgba(0,0,0,0.5);
@@ -343,13 +364,15 @@
         }
 
         .section-title {
-            font-size: 1rem;
+            font-size: 1.05rem;
             color: var(--text-muted);
             text-transform: uppercase;
             letter-spacing: 1px;
             margin-bottom: 15px;
             border-bottom: 1px solid var(--card-border);
-            padding-bottom: 5px;
+            padding-bottom: 6px;
+            width: 100%;
+            box-sizing: border-box;
         }
 
         /* Contenedor en lista vertical hacia abajo */
@@ -357,19 +380,23 @@
             display: flex;
             flex-direction: column;
             gap: 16px;
+            width: 100%;
+            box-sizing: border-box;
         }
 
-        /* Tarjeta futurista individual */
+        /* Tarjeta futurista individual de lado a lado */
         .afiliado-card {
             background-color: var(--card-bg);
             border: 1px solid var(--card-border);
-            border-left: 4px solid var(--accent-orange);
+            border-left: 5px solid var(--accent-orange);
             border-radius: 12px;
             padding: 20px;
             box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
             transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
             position: relative;
             overflow: hidden;
+            width: 100%;
+            box-sizing: border-box;
         }
 
         .afiliado-card:hover {
@@ -388,7 +415,7 @@
         }
 
         .afiliado-nombre {
-            font-size: 1.15rem;
+            font-size: 1.2rem;
             font-weight: 700;
             color: #ffffff;
             letter-spacing: 0.5px;
@@ -398,18 +425,18 @@
             background-color: rgba(255, 102, 0, 0.1);
             color: var(--accent-orange);
             border: 1px solid rgba(255, 102, 0, 0.3);
-            padding: 4px 10px;
+            padding: 4px 12px;
             border-radius: 20px;
             font-family: monospace;
             font-weight: 700;
-            font-size: 0.85rem;
+            font-size: 0.9rem;
         }
 
         .card-body {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 12px;
-            font-size: 0.9rem;
+            font-size: 0.95rem;
         }
 
         .info-group {
@@ -419,7 +446,7 @@
 
         .info-label {
             color: var(--text-muted);
-            font-size: 0.75rem;
+            font-size: 0.8rem;
             text-transform: uppercase;
             letter-spacing: 0.5px;
             margin-bottom: 3px;
@@ -432,7 +459,7 @@
 
         .comision-value {
             color: var(--success-color);
-            font-size: 1.1rem;
+            font-size: 1.2rem;
             font-weight: 800;
             text-shadow: 0 0 10px rgba(0, 255, 102, 0.2);
         }
@@ -445,6 +472,8 @@
             border: 1px solid var(--card-border);
             border-radius: 12px;
             font-size: 1rem;
+            width: 100%;
+            box-sizing: border-box;
         }
 
         .mensaje-error {
@@ -457,45 +486,47 @@
 <body>
 
     <div class="container">
-        <!-- Portada / Cabecera con GIF limpio (sin marco) -->
+        <!-- Portada / Cabecera con GIF limpio de lado a lado -->
         <header>
             <h2>D'UNIG SHOP</h2>
             <div class="subtitle">Panel de Rendimiento y Ganancias de Afiliados</div>
         </header>
 
-        <!-- Podio de los 3 Mejores Afiliados -->
-        <div class="podium-container" id="podium-section" style="display: none;">
-            <div class="podium-title">
-                👑 Top 3 Líderes de Ganancias
+        <div class="content-wrapper">
+            <!-- Podio de los 3 Mejores Afiliados -->
+            <div class="podium-container" id="podium-section" style="display: none;">
+                <div class="podium-title">
+                    👑 Top 3 Líderes de Ganancias
+                </div>
+                <div class="podium-grid" id="podium-list">
+                    <!-- Se llena dinámicamente con clases gold, silver y bronze -->
+                </div>
             </div>
-            <div class="podium-grid" id="podium-list">
-                <!-- Se llena dinámicamente con clases gold, silver y bronze -->
-            </div>
-        </div>
 
-        <!-- Portada / Anuncio de Bonos por Mayor Esfuerzo -->
-        <div class="banner-bonos">
-            <div class="banner-titulo">
-                🔥 Bonos Especiales D'UNIG
+            <!-- Portada / Anuncio de Bonos por Mayor Esfuerzo -->
+            <div class="banner-bonos">
+                <div class="banner-titulo">
+                    🔥 Bonos Especiales D'UNIG
+                </div>
+                <p class="banner-texto">
+                    ¡Recompensamos tu compromiso! Los referidos con mayor esfuerzo y volumen de órdenes de venta obtienen bonificaciones adicionales semanales y comisiones escaladas. ¡Sigue impulsando la red!
+                </p>
             </div>
-            <p class="banner-texto">
-                ¡Recompensamos tu compromiso! Los referidos con mayor esfuerzo y volumen de órdenes de venta obtienen bonificaciones adicionales semanales y comisiones escaladas. ¡Sigue impulsando la red!
-            </p>
-        </div>
 
-        <!-- Controles: Buscador y Botón con Moneda Dorada Giratoria -->
-        <div class="controls-wrapper">
-            <input type="text" id="input-buscar" class="search-box" placeholder="Buscar por nombre o código..." oninput="filtrarAfiliados()">
-            <button class="btn-actualizar" onclick="cargarAfiliadosGanancias()">
-                <span class="spinning-coin">$</span> Actualizar
-            </button>
-        </div>
-        
-        <div id="loading" class="loading">Sincronizando con el ecosistema Supabase...</div>
-        
-        <div class="section-title">Listado Completo de Red</div>
-        <div id="lista-afiliados">
-            <!-- Las tarjetas verticales se inyectarán aquí automáticamente -->
+            <!-- Controles: Buscador y Botón con Moneda Dorada Giratoria -->
+            <div class="controls-wrapper">
+                <input type="text" id="input-buscar" class="search-box" placeholder="Buscar por nombre o código..." oninput="filtrarAfiliados()">
+                <button class="btn-actualizar" onclick="cargarAfiliadosGanancias()">
+                    <span class="spinning-coin">$</span> Actualizar
+                </button>
+            </div>
+            
+            <div id="loading" class="loading">Sincronizando con el ecosistema Supabase...</div>
+            
+            <div class="section-title">Listado Completo de Red</div>
+            <div id="lista-afiliados">
+                <!-- Las tarjetas verticales se inyectarán aquí automáticamente -->
+            </div>
         </div>
     </div>
 
