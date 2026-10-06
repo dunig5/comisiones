@@ -16,6 +16,8 @@
             --accent-orange: #ff6600;
             --accent-orange-glow: rgba(255, 102, 0, 0.25);
             --success-color: #00ff66;
+            --gold-color: #ffd700;
+            --gold-glow: rgba(255, 215, 0, 0.35);
         }
         
         body {
@@ -55,7 +57,94 @@
             letter-spacing: 1px;
         }
 
-        /* Portada / Banner de Anuncios de Bonos */
+        /* Podio / Anuncio de los 3 Mejores (Dorado con patrón de monedas) */
+        .podium-container {
+            background: linear-gradient(135deg, rgba(40, 30, 5, 0.95) 0%, rgba(20, 15, 2, 0.98) 100%),
+                        radial-gradient(circle, rgba(255, 215, 0, 0.15) 10%, transparent 10%);
+            background-size: 100% 100%, 20px 20px;
+            border: 2px solid var(--gold-color);
+            border-radius: 16px;
+            padding: 22px;
+            margin-bottom: 25px;
+            box-shadow: 0 0 30px var(--gold-glow), inset 0 0 15px rgba(255, 215, 0, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .podium-title {
+            color: var(--gold-color);
+            font-size: 1.15rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 15px;
+            text-align: center;
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .podium-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 12px;
+        }
+
+        .podium-card {
+            background: rgba(20, 20, 20, 0.85);
+            border: 1px solid rgba(255, 215, 0, 0.4);
+            border-left: 5px solid var(--gold-color);
+            border-radius: 10px;
+            padding: 12px 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+            transition: transform 0.2s;
+        }
+
+        .podium-card:hover {
+            transform: scale(1.02);
+            border-color: var(--gold-color);
+        }
+
+        .podium-info {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .podium-rank {
+            font-size: 0.75rem;
+            font-weight: 800;
+            color: var(--gold-color);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .podium-name {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: #ffffff;
+        }
+
+        .podium-stats {
+            text-align: right;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+        }
+
+        .podium-earnings {
+            color: #00ff88;
+            font-size: 1.1rem;
+            font-weight: 900;
+            text-shadow: 0 0 8px rgba(0, 255, 136, 0.3);
+        }
+
+        /* Portada / Anuncio de Bonos por Mayor Esfuerzo */
         .banner-bonos {
             background: linear-gradient(135deg, rgba(255, 102, 0, 0.15) 0%, rgba(18, 18, 18, 0.9) 100%);
             border: 1px solid rgba(255, 102, 0, 0.4);
@@ -145,6 +234,16 @@
             transform: translateY(0);
         }
 
+        .section-title {
+            font-size: 1rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 15px;
+            border-bottom: 1px solid var(--card-border);
+            padding-bottom: 5px;
+        }
+
         /* Contenedor en lista vertical hacia abajo */
         #lista-afiliados {
             display: flex;
@@ -232,7 +331,7 @@
 
         .loading, .mensaje-vacio {
             text-align: center;
-            padding: 50px;
+            padding: 40px;
             color: var(--text-muted);
             background: var(--card-bg);
             border: 1px solid var(--card-border);
@@ -255,6 +354,16 @@
             <div class="subtitle">Panel de Rendimiento y Ganancias de Afiliados</div>
         </header>
 
+        <!-- Podio de los 3 Mejores Afiliados (Dorado y Monedas) -->
+        <div class="podium-container" id="podium-section" style="display: none;">
+            <div class="podium-title">
+                👑 Top 3 Líderes de Ganancias
+            </div>
+            <div class="podium-grid" id="podium-list">
+                <!-- Se llena dinámicamente -->
+            </div>
+        </div>
+
         <!-- Portada / Anuncio de Bonos por Mayor Esfuerzo -->
         <div class="banner-bonos">
             <div class="banner-titulo">
@@ -275,6 +384,7 @@
         
         <div id="loading" class="loading">Sincronizando con el ecosistema Supabase...</div>
         
+        <div class="section-title">Listado Completo de Red</div>
         <div id="lista-afiliados">
             <!-- Las tarjetas verticales se inyectarán aquí automáticamente -->
         </div>
@@ -294,11 +404,13 @@
             const containerEl = document.getElementById('lista-afiliados');
             const loadingEl = document.getElementById('loading');
             const btnActualizar = document.querySelector('.btn-actualizar');
+            const podiumSection = document.getElementById('podium-section');
 
             // Feedback visual en el botón durante la recarga
             btnActualizar.style.opacity = '0.6';
             loadingEl.style.display = 'block';
             containerEl.innerHTML = '';
+            podiumSection.style.display = 'none';
 
             try {
                 // Consultamos directamente la vista creada en Supabase
@@ -315,6 +427,7 @@
                 loadingEl.style.display = 'none';
                 btnActualizar.style.opacity = '1';
 
+                renderizarPodio(afiliadosGlobal);
                 renderizarAfiliados(afiliadosGlobal);
 
             } catch (err) {
@@ -323,6 +436,41 @@
                 btnActualizar.style.opacity = '1';
                 containerEl.innerHTML = `<div class="mensaje-vacio mensaje-error">Error de conexión: No se pudieron cargar los datos de la red. Revisa la consola.</div>`;
             }
+        }
+
+        function renderizarPodio(data) {
+            const podiumSection = document.getElementById('podium-section');
+            const podiumList = document.getElementById('podium-list');
+            podiumList.innerHTML = '';
+
+            if (!data || data.length === 0) {
+                podiumSection.style.display = 'none';
+                return;
+            }
+
+            podiumSection.style.display = 'block';
+            const top3 = data.slice(0, 3); // Tomar los primeros 3
+
+            const medallas = ['🥇 1er Lugar', '🥈 2do Lugar', '🥉 3er Lugar'];
+
+            top3.forEach((afiliado, index) => {
+                const card = document.createElement('div');
+                card.className = 'podium-card';
+                
+                const totalGanancias = Number(afiliado.total_comisiones_acumuladas || 0).toFixed(2);
+
+                card.innerHTML = `
+                    <div class="podium-info">
+                        <span class="podium-rank">${medallas[index]}</span>
+                        <span class="podium-name">${afiliado.nombre}</span>
+                    </div>
+                    <div class="podium-stats">
+                        <span class="info-label">Ganancias</span>
+                        <span class="podium-earnings">$${totalGanancias}</span>
+                    </div>
+                `;
+                podiumList.appendChild(card);
+            });
         }
 
         function renderizarAfiliados(data) {
