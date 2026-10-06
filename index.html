@@ -39,22 +39,47 @@
         header {
             text-align: center;
             margin-bottom: 25px;
-            padding-top: 15px;
+            padding: 30px 20px;
+            border-radius: 16px;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255, 102, 0, 0.3);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+        }
+
+        /* Fondo con GIF animado para el título principal */
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            /* Puedes cambiar este enlace por el GIF de tu preferencia */
+            background: linear-gradient(rgba(5, 5, 5, 0.85), rgba(5, 5, 5, 0.85)), 
+                        url('https://media.giphy.com/media/l0HlRnAWXxn0MhOBK/giphy.gif') center/cover no-repeat;
+            z-index: 1;
+        }
+
+        header * {
+            position: relative;
+            z-index: 2;
         }
 
         h2 {
             color: var(--accent-orange);
-            font-size: 1.8rem;
+            font-size: 2rem;
             text-transform: uppercase;
-            letter-spacing: 2px;
-            margin: 0 0 10px 0;
-            text-shadow: 0 0 15px var(--accent-orange-glow);
+            letter-spacing: 2.5px;
+            margin: 0 0 8px 0;
+            text-shadow: 0 0 20px var(--accent-orange-glow), 0 2px 4px rgba(0,0,0,0.9);
         }
 
         .subtitle {
             color: var(--text-muted);
-            font-size: 0.9rem;
-            letter-spacing: 1px;
+            font-size: 0.95rem;
+            letter-spacing: 1.2px;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.9);
         }
 
         /* Podio / Anuncio de los 3 Mejores (Dorado con patrón de monedas) */
@@ -113,7 +138,7 @@
         .podium-info {
             display: flex;
             flex-direction: column;
-            gap: 2px;
+            gap: 4px;
         }
 
         .podium-rank {
@@ -124,10 +149,27 @@
             letter-spacing: 1px;
         }
 
+        .podium-main-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
         .podium-name {
             font-size: 1.05rem;
             font-weight: 700;
             color: #ffffff;
+        }
+
+        .podium-badge-codigo {
+            background-color: rgba(255, 215, 0, 0.12);
+            color: var(--gold-color);
+            border: 1px solid rgba(255, 215, 0, 0.35);
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-family: monospace;
+            font-weight: 700;
+            font-size: 0.8rem;
         }
 
         .podium-stats {
@@ -462,7 +504,10 @@
                 card.innerHTML = `
                     <div class="podium-info">
                         <span class="podium-rank">${medallas[index]}</span>
-                        <span class="podium-name">${afiliado.nombre}</span>
+                        <div class="podium-main-info">
+                            <span class="podium-name">${afiliado.nombre}</span>
+                            <span class="podium-badge-codigo">${afiliado.codigo_referido}</span>
+                        </div>
                     </div>
                     <div class="podium-stats">
                         <span class="info-label">Ganancias</span>
