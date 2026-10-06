@@ -8,9 +8,9 @@
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <style>
         :root {
-            --bg-color: #050505;
-            --card-bg: #121212;
-            --card-border: #262626;
+            --bg-color: #020202;
+            --card-bg: #0d0d0d;
+            --card-border: #222222;
             --text-color: #ededed;
             --text-muted: #a3a3a3;
             --accent-orange: #ff6600;
@@ -31,8 +31,11 @@
             background-color: var(--bg-color);
             color: var(--text-color);
             margin: 0;
-            padding: 0; /* Sin padding general para que la portada toque los bordes */
-            background-image: radial-gradient(circle at 50% 0%, #1a0a00 0%, var(--bg-color) 70%);
+            padding: 0;
+            /* Fondo negro brillante con reflejos sutiles de alta gama */
+            background-image: 
+                radial-gradient(circle at 50% -20%, rgba(255, 102, 0, 0.12) 0%, transparent 60%),
+                radial-gradient(circle at 50% 50%, #111111 0%, #030303 100%);
             min-height: 100vh;
         }
 
@@ -66,7 +69,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(rgba(5, 5, 5, 0.75), rgba(5, 5, 5, 0.75)), 
+            background: linear-gradient(rgba(3, 3, 3, 0.8), rgba(3, 3, 3, 0.8)), 
                         url('https://media.giphy.com/media/l0HlRnAWXxn0MhOBK/giphy.gif') center/cover no-repeat;
             z-index: 1;
         }
@@ -103,12 +106,12 @@
 
         /* Podio general de lado a lado del contenedor */
         .podium-container {
-            background: rgba(18, 18, 18, 0.92);
+            background: rgba(13, 13, 13, 0.95);
             border: 1px solid var(--card-border);
             border-radius: 12px;
             padding: 22px;
             margin-bottom: 25px;
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.8), inset 0 1px 0 rgba(255, 255, 150, 0.05);
             position: relative;
             overflow: hidden;
             width: 100%;
@@ -139,13 +142,13 @@
 
         /* Tarjetas de Podio Individuales (Oro, Plata, Bronce) */
         .podium-card {
-            background: rgba(20, 20, 20, 0.85);
+            background: rgba(18, 18, 18, 0.9);
             border-radius: 10px;
             padding: 16px 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6);
             transition: transform 0.2s;
             width: 100%;
             box-sizing: border-box;
@@ -159,7 +162,7 @@
         .podium-card.gold {
             border: 1px solid rgba(255, 215, 0, 0.6);
             border-left: 6px solid var(--gold-color);
-            background: linear-gradient(135deg, rgba(60, 45, 5, 0.5) 0%, rgba(20, 20, 20, 0.95) 100%);
+            background: linear-gradient(135deg, rgba(60, 45, 5, 0.5) 0%, rgba(15, 15, 15, 0.95) 100%);
             box-shadow: 0 0 25px var(--gold-glow);
         }
         .podium-card.gold .podium-rank { color: var(--gold-color); }
@@ -173,7 +176,7 @@
         .podium-card.silver {
             border: 1px solid rgba(224, 224, 224, 0.5);
             border-left: 6px solid var(--silver-color);
-            background: linear-gradient(135deg, rgba(50, 50, 50, 0.5) 0%, rgba(20, 20, 20, 0.95) 100%);
+            background: linear-gradient(135deg, rgba(50, 50, 50, 0.5) 0%, rgba(15, 15, 15, 0.95) 100%);
             box-shadow: 0 0 20px var(--silver-glow);
         }
         .podium-card.silver .podium-rank { color: var(--silver-color); }
@@ -187,7 +190,7 @@
         .podium-card.bronze {
             border: 1px solid rgba(205, 127, 50, 0.5);
             border-left: 6px solid var(--bronze-color);
-            background: linear-gradient(135deg, rgba(60, 30, 10, 0.5) 0%, rgba(20, 20, 20, 0.95) 100%);
+            background: linear-gradient(135deg, rgba(60, 30, 10, 0.5) 0%, rgba(15, 15, 15, 0.95) 100%);
             box-shadow: 0 0 20px var(--bronze-glow);
         }
         .podium-card.bronze .podium-rank { color: var(--bronze-color); }
@@ -246,7 +249,7 @@
 
         /* Banner de Bonos de lado a lado */
         .banner-bonos {
-            background: linear-gradient(135deg, rgba(255, 102, 0, 0.15) 0%, rgba(18, 18, 18, 0.9) 100%);
+            background: linear-gradient(135deg, rgba(255, 102, 0, 0.15) 0%, rgba(13, 13, 13, 0.95) 100%);
             border: 1px solid rgba(255, 102, 0, 0.4);
             border-radius: 12px;
             padding: 20px;
@@ -285,18 +288,18 @@
             margin: 0;
         }
 
-        /* Controles superiores (Buscador y Botón con Moneda Dorada Giratoria) */
+        /* Controles superiores (Buscador y Botón debajo de él) */
         .controls-wrapper {
             display: flex;
+            flex-direction: column;
             gap: 12px;
             margin-bottom: 25px;
-            align-items: center;
             width: 100%;
             box-sizing: border-box;
         }
 
         .search-box {
-            flex: 1;
+            width: 100%;
             background-color: var(--card-bg);
             border: 1px solid var(--card-border);
             border-radius: 10px;
@@ -304,35 +307,39 @@
             color: var(--text-color);
             font-size: 1rem;
             outline: none;
+            box-sizing: border-box;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.5);
             transition: border-color 0.2s, box-shadow 0.2s;
         }
 
         .search-box:focus {
             border-color: var(--accent-orange);
-            box-shadow: 0 0 10px var(--accent-orange-glow);
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.5), 0 0 10px var(--accent-orange-glow);
         }
 
-        /* Botón Actualizar con Moneda Dorada Giratoria */
+        /* Botón Actualizar con Moneda Dorada Giratoria (Diseño de ancho completo debajo) */
         .btn-actualizar {
-            background: linear-gradient(135deg, rgba(255, 215, 0, 0.15) 0%, rgba(30, 25, 5, 0.9) 100%);
+            width: 100%;
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.2) 0%, rgba(30, 25, 5, 0.95) 100%);
             color: var(--gold-color);
             border: 1px solid rgba(255, 215, 0, 0.4);
             border-radius: 10px;
-            padding: 12px 20px;
+            padding: 14px 20px;
             font-weight: 700;
-            font-size: 0.95rem;
+            font-size: 1rem;
             cursor: pointer;
             transition: all 0.2s ease;
             display: flex;
             align-items: center;
+            justify-content: center;
             gap: 10px;
-            white-space: nowrap;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+            box-sizing: border-box;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
         }
 
         .btn-actualizar:hover {
             border-color: var(--gold-color);
-            box-shadow: 0 0 18px var(--gold-glow);
+            box-shadow: 0 0 20px var(--gold-glow);
             transform: translateY(-1px);
         }
 
@@ -391,7 +398,7 @@
             border-left: 5px solid var(--accent-orange);
             border-radius: 12px;
             padding: 20px;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.03);
             transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
             position: relative;
             overflow: hidden;
@@ -410,7 +417,7 @@
             justify-content: space-between;
             align-items: center;
             margin-bottom: 12px;
-            border-bottom: 1px solid #1f1f1f;
+            border-bottom: 1px solid #1a1a1a;
             padding-bottom: 10px;
         }
 
@@ -474,6 +481,7 @@
             font-size: 1rem;
             width: 100%;
             box-sizing: border-box;
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.02);
         }
 
         .mensaje-error {
@@ -513,7 +521,7 @@
                 </p>
             </div>
 
-            <!-- Controles: Buscador y Botón con Moneda Dorada Giratoria -->
+            <!-- Controles: Buscador y Botón de Actualizar Debajo -->
             <div class="controls-wrapper">
                 <input type="text" id="input-buscar" class="search-box" placeholder="Buscar por nombre o código..." oninput="filtrarAfiliados()">
                 <button class="btn-actualizar" onclick="cargarAfiliadosGanancias()">
