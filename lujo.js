@@ -1,7 +1,7 @@
 /* Tienda de lujo · gomitas artesanales. Configura TIENDA en cada página. */
-// Todas las compras se hacen por mensaje directo (DM) de TikTok.
+// Todas las compras se hacen por mensaje directo (DM) de Instagram (respuesta automática con ManyChat).
 const TIKTOK = 'https://www.tiktok.com/@delossantospro';
-const TIKTOK_DM = 'https://tiktok.me/delossantospro'; // abre el chat (DM) directo
+const IG_DM = 'https://ig.me/m/dunigshop'; // abre el chat de Instagram directo
 
 const $ = s => document.querySelector(s);
 const money = n => '$' + Number(n).toFixed(2).replace('.', ',').replace(',00', '');
@@ -43,8 +43,8 @@ function abrirCarrito() {
     <label>Nombre</label><input id="cN" maxlength="60" placeholder="Tu nombre" value="${esc(localStorage.getItem('lujo_nom') || '')}">
     <label>Sector o dirección</label><input id="cD" maxlength="160" placeholder="Sector, calle, referencia" value="${esc(localStorage.getItem('lujo_dir') || '')}">
     <label>Código del vendedor (opcional)</label><input id="cR" maxlength="12" placeholder="Ej. ANA01" value="${esc(REF)}" style="text-transform:uppercase">
-    <button class="btn full" onclick="pedir()">Pedir por DM de TikTok · ${money(tot)}</button>
-    <p class="mut" style="margin-top:10px;text-align:center">Se copia tu pedido y se abre mi chat de TikTok: solo pega y envía.</p>`
+    <button class="btn full" onclick="pedir()">Pedir por Instagram · ${money(tot)}</button>
+    <p class="mut" style="margin-top:10px;text-align:center">Se copia tu pedido y se abre mi chat de Instagram: solo pega y envía.</p>`
     : '<p class="mut" style="text-align:center;padding:40px 0">Tu carrito está vacío 🍬</p>';
   $('#dCart').classList.add('open');
 }
@@ -56,8 +56,8 @@ async function pedir() {
   const it = items(), tot = it.reduce((s, i) => s + i.p * i.q, 0);
   const txt = `Hola David, quiero hacer un pedido (${TIENDA.tipo}):\n` + it.map(i => `• ${i.q} × ${i.n} (${money(i.p)})`).join('\n') +
     `\nTotal: ${money(tot)}\nNombre: ${nom}\nSector: ${dir}` + (ref ? `\nVendedor: ${ref}` : '');
-  try { await navigator.clipboard.writeText(txt); toast('¡Pedido copiado! Pégalo en mi DM de TikTok 🎉'); } catch (e) { prompt('Copia tu pedido:', txt); }
-  setTimeout(() => { location.href = TIKTOK_DM; }, 900);
+  try { await navigator.clipboard.writeText(txt); toast('¡Pedido copiado! Pégalo en mi chat de Instagram 🎉'); } catch (e) { prompt('Copia tu pedido:', txt); }
+  setTimeout(() => { location.href = IG_DM; }, 900);
 }
 
 /* efectos */
