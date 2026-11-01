@@ -68,8 +68,8 @@
     <div class="ft reveal"><span class="ic">🧤</span><h3>3. Recibes</h3><p>Bolsitas hechas a mano con guantes, listas para vender.</p></div>
     <div class="ft reveal"><span class="ic">💵</span><h3>4. Ganas</h3><p>Vendes cada una a $1 y sumas al ranking.</p></div>
   </div>
-  <div class="sh reveal" style="margin:50px 0 20px"><p>Cinco sabores: </p></div>
-  <div class="chips reveal"><span class="chip">🍓 Fresa</span><span class="chip">🍋 Limón</span><span class="chip">🫐 Mora</span><span class="chip">🍊 Naranja</span><span class="chip">🌿 Menta</span></div>
+  <div class="sh reveal" style="margin:50px 0 20px"><h2>Cinco <span class="gtxt">sabores</span></h2><p>Toca un sabor para verlo de cerca.</p></div>
+  <div class="chips reveal"><span class="chip" data-s="fresa">🍓 Fresa</span><span class="chip" data-s="limon">🍋 Limón</span><span class="chip" data-s="mora">🫐 Mora</span><span class="chip" data-s="naranja">🍊 Naranja</span><span class="chip" data-s="menta">🌿 Menta</span></div>
   <p class="note">Hechas con gelatina vegetal (agar), sin gelatina animal, no se derriten con el calor.</p>
 </div></section>
 
@@ -93,14 +93,14 @@
 
 <script>
 const TIENDA = { id: 'mayor', tipo: 'al mayor', productos: [
-  { id: 'docena', n: 'Docena', d: '12 bolsitas de 80 g · revendes en $12', p: 7.5, img: 'vend-dinero.jpg', extra: 'Ganas $4,50' },
-  { id: 'paquete24', n: 'Paquete de 24', d: '24 bolsitas de 80 g · revendes en $24', p: 13.2, img: 'vend-paquete24.jpg', tag: 'Más ganancia', extra: 'Ganas $10,80' },
-  { id: 'cajas-ventana', n: '6 cajas con ventana', d: '160 g c/u · al público $2', p: 7.8, img: 'pres-caja-ventana.jpg', extra: 'Ganas $4,20' },
-  { id: 'cajas-regalo', n: '6 cajas de regalo', d: '200 g c/u · al público $2,50', p: 10.2, img: 'pres-caja-regalo.jpg', extra: 'Ganas $4,80' },
-  { id: 'cajas-4', n: '6 cajas de 4 sabores', d: '240 g c/u · al público $3', p: 12, img: 'pres-caja-4-sabores.jpg', extra: 'Ganas $6' },
-  { id: 'doypack', n: 'Bolsas doypack (docena)', d: '12 × 80 g con cierre · revendes en $12', p: 7.5, img: 'pres-doypack.jpg', extra: 'Ganas $4,50' },
-  { id: 'celofan', n: 'Celofán con lazo (docena)', d: '12 × 80 g para piñatas · revendes en $12', p: 7.5, img: 'pres-celofan-lazo.jpg', extra: 'Ganas $4,50' },
-  { id: 'cartoncito', n: 'Bolsitas con cartoncito (docena)', d: '12 × 80 g para colgar · revendes en $12', p: 7.5, img: 'pres-cartoncito.jpg', extra: 'Ganas $4,50' }
+  { id: 'docena', n: 'Docena', d: '12 bolsitas de 80 g · revendes en $12', p: 7.5, img: 'vend-dinero.jpg', extra: 'Ganas $4,50', info: { desc: '12 bolsitas de 80 g con 10 gomitas de muñequitos cada una. Ideal para empezar a vender.', carac: ['Mezcla los sabores que quieras', 'Revendes cada bolsita a $1'], ocasiones: ['Salida del colegio', 'Bodegas y kioscos', 'Oficinas', 'Ventas en la calle'] } },
+  { id: 'paquete24', n: 'Paquete de 24', d: '24 bolsitas de 80 g · revendes en $24', p: 13.2, img: 'vend-paquete24.jpg', tag: 'Más ganancia', extra: 'Ganas $10,80', info: { desc: 'Caja con 24 bolsitas de 80 g. El que más ganancia te deja por bolsita.', carac: ['$0,55 cada bolsita', 'Ganas $0,45 por bolsita'], ocasiones: ['Vendedores frecuentes', 'Bodegas', 'Ferias y mercados', 'Eventos'] } },
+  { id: 'cajas-ventana', n: '6 cajas con ventana', d: '160 g c/u · al público $2', p: 7.8, img: 'pres-caja-ventana.jpg', extra: 'Ganas $4,20', info: { desc: 'Caja de cartón con ventana transparente, 160 g (20 gomitas). Se ven las gomitas desde afuera.', carac: ['Ventana transparente', 'Pagas $1,30 c/u, vendes a $2'], ocasiones: ['Detalle de oficina', 'Día del maestro', 'Agradecimiento', 'Merienda compartida'] } },
+  { id: 'cajas-regalo', n: '6 cajas de regalo', d: '200 g c/u · al público $2,50', p: 10.2, img: 'pres-caja-regalo.jpg', extra: 'Ganas $4,80', info: { desc: 'Caja de regalo con lazo, 200 g (25 gomitas). Lista para entregar sin envolver.', carac: ['Lazo de cinta', 'Pagas $1,70 c/u, vendes a $2,50'], ocasiones: ['Cumpleaños', 'Día de la madre', 'San Valentín', 'Navidad'] } },
+  { id: 'cajas-4', n: '6 cajas de 4 sabores', d: '240 g c/u · al público $3', p: 12, img: 'pres-caja-4-sabores.jpg', extra: 'Ganas $6', info: { desc: 'Caja con 4 compartimientos, un sabor en cada uno. 240 g (30 gomitas).', carac: ['4 sabores en una caja', 'Pagas $2 c/u, vendes a $3'], ocasiones: ['Regalo especial', 'Reuniones familiares', 'Fiestas', 'Para compartir'] } },
+  { id: 'doypack', n: 'Bolsas doypack (docena)', d: '12 × 80 g con cierre · revendes en $12', p: 7.5, img: 'pres-doypack.jpg', extra: 'Ganas $4,50', info: { desc: 'Bolsa doypack con cierre, se mantiene de pie y se vuelve a cerrar.', carac: ['Cierre reutilizable', 'Se para sola en el mostrador'], ocasiones: ['Bodegas', 'Para la cartera o el bolso', 'Viajes', 'Oficina'] } },
+  { id: 'celofan', n: 'Celofán con lazo (docena)', d: '12 × 80 g para piñatas · revendes en $12', p: 7.5, img: 'pres-celofan-lazo.jpg', extra: 'Ganas $4,50', info: { desc: 'Bolsita de celofán transparente con lazo de cinta de colores.', carac: ['Lazo de colores', 'Muy vistosa'], ocasiones: ['Piñatas', 'Recuerdos de fiesta', 'Bautizos y comuniones', 'Baby showers'] } },
+  { id: 'cartoncito', n: 'Bolsitas con cartoncito (docena)', d: '12 × 80 g para colgar · revendes en $12', p: 7.5, img: 'pres-cartoncito.jpg', extra: 'Ganas $4,50', info: { desc: 'Bolsita con cartoncito de animalito para colgar en exhibidor o gancho.', carac: ['Se cuelga en ganchos', 'Exhibición ordenada'], ocasiones: ['Bodegas y kioscos', 'Panaderías', 'Farmacias', 'Cantinas escolares'] } }
 ]};
 </script>
 <script src="../lujo.js"></script>

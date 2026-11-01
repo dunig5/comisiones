@@ -30,6 +30,11 @@
   <div class="prods" id="prods"></div>
 </div></section>
 
+<section><div class="wrap">
+  <div class="sh reveal"><h2>Cinco <span class="gtxt">sabores</span></h2><p>Toca un sabor para verlo de cerca.</p></div>
+  <div class="chips reveal"><span class="chip" data-s="fresa">🍓 Fresa</span><span class="chip" data-s="limon">🍋 Limón</span><span class="chip" data-s="mora">🫐 Mora</span><span class="chip" data-s="naranja">🍊 Naranja</span><span class="chip" data-s="menta">🌿 Menta</span></div>
+</div></section>
+
 <section style="background:var(--bg2)"><div class="wrap">
   <div class="sh reveal"><h2>Para cada <span class="gtxt">momento feliz</span></h2></div>
   <div class="duo">
@@ -74,14 +79,14 @@
 
 <script>
 const TIENDA = { id: 'clientes', tipo: 'al detal', productos: [
-  { id: 'fresa', n: 'Bolsita Fresa', d: '80 g · 10 gomitas', p: 1, img: 'sabor80-fresa.jpg', tag: 'Favorita' },
-  { id: 'limon', n: 'Bolsita Limón', d: '80 g · 10 gomitas', p: 1, img: 'sabor80-limon.jpg' },
-  { id: 'mora', n: 'Bolsita Mora', d: '80 g · 10 gomitas', p: 1, img: 'sabor80-mora.jpg' },
-  { id: 'naranja', n: 'Bolsita Naranja', d: '80 g · 10 gomitas', p: 1, img: 'sabor80-naranja.jpg' },
-  { id: 'menta', n: 'Bolsita Menta', d: '80 g · 10 gomitas', p: 1, img: 'sabor80-menta.jpg' },
-  { id: 'caja-ventana', n: 'Caja con ventana', d: '160 g · 20 gomitas', p: 2, img: '../vendedores/pres-caja-ventana.jpg' },
-  { id: 'caja-regalo', n: 'Caja de regalo con lazo', d: '200 g · 25 gomitas', p: 2.5, img: '../vendedores/pres-caja-regalo.jpg', tag: 'Para regalar' },
-  { id: 'caja-4', n: 'Caja de 4 sabores', d: '240 g · 30 gomitas', p: 3, img: '../vendedores/pres-caja-4-sabores.jpg' }
+  { id: 'fresa', sabor: 'fresa', n: 'Bolsita Fresa', d: '80 g · 10 gomitas', p: 1, img: 'sabor80-fresa.jpg', tag: 'Favorita' },
+  { id: 'limon', sabor: 'limon', n: 'Bolsita Limón', d: '80 g · 10 gomitas', p: 1, img: 'sabor80-limon.jpg' },
+  { id: 'mora', sabor: 'mora', n: 'Bolsita Mora', d: '80 g · 10 gomitas', p: 1, img: 'sabor80-mora.jpg' },
+  { id: 'naranja', sabor: 'naranja', n: 'Bolsita Naranja', d: '80 g · 10 gomitas', p: 1, img: 'sabor80-naranja.jpg' },
+  { id: 'menta', sabor: 'menta', n: 'Bolsita Menta', d: '80 g · 10 gomitas', p: 1, img: 'sabor80-menta.jpg' },
+  { id: 'caja-ventana', n: 'Caja con ventana', d: '160 g · 20 gomitas', p: 2, img: '../vendedores/pres-caja-ventana.jpg', info: { desc: 'Caja de cartón con ventana transparente: las gomitas se ven desde afuera. Elige uno o dos sabores.', carac: ['Ventana transparente', '20 gomitas surtidas'], ocasiones: ['Detalle de oficina', 'Día del maestro', 'Agradecimiento', 'Merienda compartida'] } },
+  { id: 'caja-regalo', n: 'Caja de regalo con lazo', d: '200 g · 25 gomitas', p: 2.5, img: '../vendedores/pres-caja-regalo.jpg', tag: 'Para regalar', info: { desc: 'Caja de regalo con lazo de cinta, lista para entregar sin envolver.', carac: ['Lazo de cinta', '25 gomitas surtidas'], ocasiones: ['Cumpleaños', 'Día de la madre', 'San Valentín', 'Navidad'] } },
+  { id: 'caja-4', n: 'Caja de 4 sabores', d: '240 g · 30 gomitas', p: 3, img: '../vendedores/pres-caja-4-sabores.jpg', info: { desc: 'Cuatro compartimientos, un sabor en cada uno: para probarlos todos.', carac: ['4 compartimientos', '30 gomitas'], ocasiones: ['Para compartir en familia', 'Reuniones', 'Regalo especial', 'Fiestas'] } }
 ]};
 </script>
 <script src="../lujo.js"></script>
