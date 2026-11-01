@@ -6,6 +6,8 @@
     <title>Gomitas artesanales | Ranking de vendedores</title>
     <!-- Importar Supabase JS Client -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <meta name="theme-color" content="#07070a">
+    <link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
             --bg-color: #020202;
@@ -13,8 +15,8 @@
             --card-border: #222222;
             --text-color: #ededed;
             --text-muted: #a3a3a3;
-            --accent-orange: #ff6600;
-            --accent-orange-glow: rgba(255, 102, 0, 0.25);
+            --accent-orange: #f5a300;
+            --accent-orange-glow: rgba(245, 163, 0, 0.25);
             --success-color: #00ff66;
             
             /* Colores de Podio */
@@ -27,14 +29,14 @@
         }
         
         body {
-            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            font-family: 'Poppins', 'Segoe UI', system-ui, -apple-system, sans-serif;
             background-color: var(--bg-color);
             color: var(--text-color);
             margin: 0;
             padding: 0;
             /* Fondo negro brillante con reflejos sutiles de alta gama */
             background-image: 
-                radial-gradient(circle at 50% -20%, rgba(255, 102, 0, 0.12) 0%, transparent 60%),
+                radial-gradient(circle at 50% -20%, rgba(245, 163, 0, 0.12) 0%, transparent 60%),
                 radial-gradient(circle at 50% 50%, #111111 0%, #030303 100%);
             min-height: 100vh;
         }
@@ -73,7 +75,7 @@
             background: linear-gradient(rgba(3, 3, 3, 0.85), rgba(3, 3, 3, 0.85)), 
                         url('https://gifgifs.com/animations/other-animations/money/dollars.gif') center/cover no-repeat;
             z-index: 1;
-            border-bottom: 1px solid rgba(255, 102, 0, 0.2);
+            border-bottom: 1px solid rgba(245, 163, 0, 0.2);
         }
 
         header * {
@@ -251,8 +253,8 @@
 
         /* Banner de Bonos de lado a lado */
         .banner-bonos {
-            background: linear-gradient(135deg, rgba(255, 102, 0, 0.15) 0%, rgba(13, 13, 13, 0.95) 100%);
-            border: 1px solid rgba(255, 102, 0, 0.4);
+            background: linear-gradient(135deg, rgba(245, 163, 0, 0.15) 0%, rgba(13, 13, 13, 0.95) 100%);
+            border: 1px solid rgba(245, 163, 0, 0.4);
             border-radius: 12px;
             padding: 20px;
             margin-bottom: 25px;
@@ -431,9 +433,9 @@
         }
 
         .badge-codigo {
-            background-color: rgba(255, 102, 0, 0.1);
+            background-color: rgba(245, 163, 0, 0.1);
             color: var(--accent-orange);
-            border: 1px solid rgba(255, 102, 0, 0.3);
+            border: 1px solid rgba(245, 163, 0, 0.3);
             padding: 4px 12px;
             border-radius: 20px;
             font-family: monospace;
@@ -470,7 +472,7 @@
             color: var(--success-color);
             font-size: 1.2rem;
             font-weight: 800;
-            text-shadow: 0 0 10px rgba(0, 255, 102, 0.2);
+            text-shadow: 0 0 10px rgba(0, 245, 163, 0.2);
         }
 
         .loading, .mensaje-vacio {
@@ -491,6 +493,24 @@
             background: rgba(255, 68, 68, 0.1);
             border: 1px solid rgba(255, 68, 68, 0.3);
         }
+
+        /* ===== Estilo lujo (combina con la tienda) ===== */
+        :root{--bg-color:#07070a;--card-bg:#14141b;--card-border:#2a2a33;--text-color:#fbf8ef;--text-muted:#a9a6b3;--success-color:#2ee59d;
+          --lux:linear-gradient(110deg,#f5a300 0%,#ffd23f 25%,#fff3b0 50%,#ffd23f 75%,#f5a300 100%)}
+        @keyframes shine{to{background-position:200% center}}
+        body{background-image:radial-gradient(ellipse at 50% -10%,rgba(255,210,63,.14) 0%,transparent 55%),radial-gradient(circle at 50% 60%,#0f0f14 0%,#07070a 100%)!important}
+        header::before{background:linear-gradient(rgba(7,7,10,.82),rgba(7,7,10,.92)),url('https://gifgifs.com/animations/other-animations/money/dollars.gif') center/cover no-repeat!important;border-bottom:1px solid rgba(255,210,63,.35)!important}
+        h2{background:var(--lux);background-size:200% auto;-webkit-background-clip:text;background-clip:text;color:transparent!important;animation:shine 4s linear infinite;text-shadow:none!important;font-weight:800;letter-spacing:1px!important;text-transform:none!important;font-size:2.3rem!important}
+        .podium-container,.afiliado-card,.banner-bonos{background:#14141b!important;border:1px solid #2a2a33!important;border-radius:18px!important;position:relative}
+        .podium-container::before,.banner-bonos::before{content:'';position:absolute;inset:-1px;border-radius:inherit;padding:1px;background:var(--lux);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;opacity:.45;pointer-events:none}
+        .afiliado-card:hover{border-color:rgba(255,210,63,.5)!important;box-shadow:0 20px 50px rgba(255,180,0,.15)!important}
+        .banner-titulo,.podium-title,.section-title{color:#ffd23f!important;text-shadow:none!important}
+        .btn-actualizar{background:var(--lux)!important;background-size:200% auto!important;color:#1a1200!important;border:0!important;border-radius:999px!important;font-family:inherit;font-weight:700!important;box-shadow:0 8px 30px rgba(255,190,0,.35)!important;animation:shine 5s linear infinite}
+        .search-box{background:#0a0a0e!important;border:1px solid #2a2a33!important;border-radius:999px!important;color:#fbf8ef!important;font-family:inherit}
+        .search-box:focus{border-color:#f5a300!important}
+        .comision-value{color:#2ee59d!important}
+        .badge-codigo,.podium-badge-codigo{background:rgba(255,210,63,.12)!important;color:#ffd23f!important;border:1px solid rgba(255,210,63,.4)!important;border-radius:999px!important}
+        .volver{display:inline-block;margin-top:14px;padding:8px 16px;border-radius:999px;border:1px solid rgba(255,210,63,.5);color:#ffd23f;font-size:13px;font-weight:600;text-decoration:none}
     </style>
 </head>
 <body>
@@ -499,14 +519,15 @@
         <!-- Portada / Cabecera fija (Sticky) de lado a lado -->
         <header>
             <h2>Gomitas Artesanales</h2>
-            <div class="subtitle">Panel de Rendimiento y Ganancias de Afiliados</div>
+            <div class="subtitle">Ranking de vendedores y ganancias</div>
+            <a class="volver" href="vendedores/">← Volver a la tienda</a>
         </header>
 
         <div class="content-wrapper">
             <!-- Podio de los 3 Mejores Afiliados -->
             <div class="podium-container" id="podium-section" style="display: none;">
                 <div class="podium-title">
-                    👑 Top 3 Líderes de Ganancias
+                    👑 Top 3 del mes
                 </div>
                 <div class="podium-grid" id="podium-list">
                     <!-- Se llena dinámicamente con clases gold, silver y bronze -->
@@ -516,10 +537,10 @@
             <!-- Portada / Anuncio de Bonos por Mayor Esfuerzo -->
             <div class="banner-bonos">
                 <div class="banner-titulo">
-                    🔥 Bonos Especiales del Mes
+                    🏆 Bono del mes: premio sorpresa
                 </div>
                 <p class="banner-texto">
-                    ¡Recompensamos tu compromiso! Los referidos con mayor esfuerzo y volumen de órdenes de venta obtienen bonificaciones adicionales semanales y comisiones escaladas. ¡Sigue impulsando la red!
+                    Cada mes, los 3 vendedores con más ventas ganan un premio sorpresa. Cada venta que haces queda registrada y sube tu puesto. ¡Sigue vendiendo!
                 </p>
             </div>
 
@@ -531,9 +552,9 @@
                 </button>
             </div>
             
-            <div id="loading" class="loading">Sincronizando con el ecosistema Supabase...</div>
+            <div id="loading" class="loading">Cargando ranking...</div>
             
-            <div class="section-title">Listado Completo de Red</div>
+            <div class="section-title">Todos los vendedores</div>
             <div id="lista-afiliados">
                 <!-- Las tarjetas verticales se inyectarán aquí automáticamente -->
             </div>
