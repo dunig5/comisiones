@@ -1,431 +1,89 @@
-<!doctype html>
-<html lang="es-VE">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>La sonrisa más dulce, hecha a mano · Gomitas artesanales</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@400&display=swap"
-    />
-    <link rel="stylesheet" href="hark.css" />
-    <link rel="stylesheet" href="hark-hero.css" />
-    <link rel="stylesheet" href="hark-charts.css" />
-    <style>
-      /* Hero photo: square, boy centered, never cropped off */
-      .x-hero-media { position: absolute; z-index: -2; overflow: hidden; }
-      .x-hero-media .hero__img { object-position: center; z-index: 0; }
-      @media (min-width: 761px) {
-        .x-hero-media {
-          top: 0; right: 0; bottom: 0; height: 100%; aspect-ratio: 1 / 1;
-          -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 22%);
-          mask-image: linear-gradient(to right, transparent 0%, #000 22%);
-        }
-        .hero .hero__copy { max-width: min(40rem, 52%); }
-      }
-      @media (max-width: 760px) {
-        .hero::after { display: none; }
-        .x-hero-media { position: relative; width: 100%; aspect-ratio: 1 / 1; flex: none; }
-        .hero .hero__copy { padding-top: 24px; }
-      }
-      /* Ken Burns, kept small so nothing gets cut */
-      .hero .hero__img.x-kenburns { animation: x-kb 22s ease-in-out infinite alternate; transform-origin: 50% 50%; }
-      @keyframes x-kb {
-        from { transform: scale(1); }
-        to { transform: scale(1.05); }
-      }
-      .hero .x-cta { background: var(--hero-text); color: var(--hero-surface); }
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#07070a">
+<title>Gomitas artesanales · Hechas a mano</title>
+<meta name="description" content="Gomitas artesanales de gelatina vegetal (agar). Bolsita de 80 g, 10 gomitas, a $1.">
+<meta property="og:image" content="https://dunig5.github.io/comisiones/gomitas/hero-nino-centrado.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../lujo.css">
+</head>
+<body>
+<nav class="top" id="nav"><div class="wrap"><a class="brand" href="#"><i>🍬</i><span>Gomitas Artesanales</span></a><span class="sp"></span><a class="btn sm" href="#productos">Comprar</a></div></nav>
 
-      /* Big TikTok button */
-      .x-cta {
-        display: inline-flex; align-items: center; justify-content: center; gap: 10px;
-        min-height: 56px; padding: 0 28px; border-radius: var(--r-pill);
-        background: var(--fill-primary); color: var(--text-primary-on);
-        font: var(--type-body); font-weight: var(--weight-medium); font-size: var(--size-heading);
-        text-decoration: none; box-shadow: var(--hark-shadow);
-        transition: transform var(--dur-quick) var(--ease-out);
-      }
-      .x-cta:hover { transform: translateY(-2px) scale(1.02); }
-      .x-cta:focus-visible { outline: 2px solid var(--text-primary); outline-offset: 3px; }
-      .hero .x-cta { justify-self: start; }
+<header class="hero">
+  <div class="bg" style="background-image:url(hero-nino-centrado.jpg)"></div><div class="shade"></div><canvas id="sparks"></canvas>
+  <div class="wrap in">
+    <span class="kicker"><b></b> Productor artesanal · pedidos en línea</span>
+    <h1>Gomitas hechas<br><span class="gtxt">a mano, para ti</span></h1>
+    <p class="lead">Bolsita de 80 g con 10 gomitas de muñequitos a solo $1. Elige tus sabores, arma tu pedido y te lo llevo.</p>
+    <div class="ctas"><a class="btn" href="#productos">🛍️ Ver productos</a><a class="btn ghost" href="https://www.tiktok.com/@delossantospro" target="_blank" rel="noopener">🎬 Sígueme en TikTok</a></div>
+    <div class="trust"><div><b>🌿 Agar</b>gelatina vegetal</div><div><b>☀️ Firmes</b>no se derriten</div><div><b>🧤 Higiene</b>siempre con guantes</div></div>
+  </div>
+</header>
 
-      /* Gummy shapes */
-      .x-gummy {
-        display: inline-block; width: 44px; height: 52px;
-        border-radius: 50% 50% 46% 46% / 58% 58% 42% 42%;
-        background: var(--g, var(--chart-7));
-        box-shadow: inset -6px -8px 0 rgba(0, 0, 0, 0.08), inset 6px 6px 0 rgba(255, 255, 255, 0.35);
-        animation: x-float 4.2s ease-in-out infinite;
-        animation-delay: var(--d, 0s);
-      }
-      .x-gummy--bear { border-radius: 46% 46% 40% 40% / 50% 50% 50% 50%; position: relative; }
-      .x-gummy--bear::before, .x-gummy--bear::after {
-        content: ""; position: absolute; top: -8px; width: 16px; height: 16px; border-radius: 50%; background: inherit;
-      }
-      .x-gummy--bear::before { left: 2px; }
-      .x-gummy--bear::after { right: 2px; }
-      .x-gummy--ring { border-radius: 50%; width: 48px; height: 48px; background: transparent; border: 12px solid var(--g); box-shadow: none; }
-      @keyframes x-float {
-        0%, 100% { transform: translateY(0) rotate(-4deg); }
-        50% { transform: translateY(-10px) rotate(5deg); }
-      }
+<div class="marquee"><div class="tr" id="mq"></div></div>
 
-      /* Flavors */
-      .x-flavors { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px; }
-      .x-flavors button {
-        width: 100%; display: grid; justify-items: center; gap: 14px; padding: 28px 16px 20px; cursor: pointer;
-        border: 1px solid transparent; border-radius: var(--r-l); background: var(--fill-tertiary);
-        font: var(--type-body); font-weight: var(--weight-medium); color: var(--text-primary);
-        transition: transform var(--dur-quick) var(--ease-out), border-color var(--dur-quick) var(--ease-out);
-      }
-      .x-flavors button:hover { transform: translateY(-3px); border-color: var(--stroke-primary); }
-      .x-flavors small { font: var(--type-caption); color: var(--text-secondary); }
+<section id="productos"><div class="wrap">
+  <div class="sh reveal"><h2>Nuestros <span class="gtxt">favoritos</span></h2><p id="refTxt">Toca “Agregar” y arma tu pedido</p></div>
+  <div class="prods" id="prods"></div>
+</div></section>
 
-      /* Tappable floating gummies */
-      .x-gbtn {
-        display: inline-flex; align-items: center; justify-content: center; min-width: var(--tap); min-height: 56px;
-        padding: 4px; border: 0; background: none; cursor: pointer; border-radius: var(--r-s);
-        transition: transform var(--dur-quick) var(--ease-out);
-      }
-      .x-gbtn:hover { transform: scale(1.12); }
-      .x-gbtn:focus-visible, .x-flavors button:focus-visible { outline: 2px solid var(--text-primary); outline-offset: 2px; }
-      .x-gbtn--s .x-gummy { width: 30px; height: 36px; }
-      .x-gbtn--s .x-gummy--ring { width: 34px; height: 34px; border-width: 9px; }
-      .x-price { position: relative; }
-      .x-float-gummies { display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; padding-top: 8px; }
-      @media (min-width: 761px) {
-        .x-price { display: flex; align-items: center; gap: 16px; }
-        .x-price > .stats { flex: 1; min-width: 0; }
-        .x-float-gummies { flex: none; padding: 0 4% 0 0; gap: 10px; }
-      }
+<section style="background:var(--bg2)"><div class="wrap">
+  <div class="sh reveal"><h2>Para cada <span class="gtxt">momento feliz</span></h2></div>
+  <div class="duo">
+    <div class="ph-card reveal"><img src="mama-regalo.jpg" alt="Mamá regalando una cajita de gomitas" loading="lazy"><div class="cap"><h3>Un regalo que se recuerda</h3><p>Sorprende a los tuyos con una cajita de gomitas.</p></div></div>
+    <div class="ph-card reveal"><img src="cumple-gomitas.jpg" alt="Cumpleaños con bolsitas de gomitas" loading="lazy"><div class="cap"><h3>Cumpleaños y piñatas</h3><p>Bolsitas sorpresa con animalitos surtidos.</p></div></div>
+    <div class="ph-card reveal"><img src="presentaciones-artesanal.jpg" alt="Presentaciones artesanales" loading="lazy"><div class="cap"><h3>Para la merienda</h3><p>El antojo perfecto para el recreo o la tarde.</p></div></div>
+  </div>
+</div></section>
 
-      /* Flavor modal */
-      .x-modal {
-        border: 0; padding: 0; width: min(560px, calc(100% - 24px)); max-height: calc(100% - 32px);
-        border-radius: var(--r-xl); background: var(--fill-primary-on); color: var(--text-primary); box-shadow: var(--hark-shadow);
-      }
-      .x-modal::backdrop { background: rgb(0 0 0 / 0.5); -webkit-backdrop-filter: var(--hark-blur); backdrop-filter: var(--hark-blur); }
-      .x-modal[open] { animation: x-pop var(--dur-draw, 0.3s) var(--ease-out); }
-      @keyframes x-pop { from { opacity: 0; transform: translateY(16px) scale(0.97); } to { opacity: 1; transform: none; } }
-      .x-modal__inner { position: relative; display: grid; gap: 14px; padding: 24px; }
-      .x-modal__close {
-        position: absolute; top: 12px; right: 12px; width: var(--tap); height: var(--tap); border-radius: 50%;
-        border: 1px solid var(--stroke-secondary); background: var(--fill-primary-on); color: var(--text-primary);
-        font: var(--type-heading); line-height: 1; cursor: pointer; z-index: 1;
-      }
-      .x-modal__close:focus-visible, .x-modal .x-cta:focus-visible { outline: 2px solid var(--text-primary); outline-offset: 2px; }
-      .x-modal__stage { margin: 8px 0 0; border-radius: var(--r-l); background: var(--fill-tertiary); overflow: hidden; aspect-ratio: 1408 / 768; }
-      .x-modal__stage img { display: block; width: 100%; height: 100%; object-fit: contain; scale: 1.08; animation: x-wobble 3.6s ease-in-out infinite; }
-      .x-modal__stage img[hidden] { display: none; }
-      @keyframes x-wobble {
-        0%, 100% { transform: translateY(0) rotate(-2deg); }
-        50% { transform: translateY(-8px) rotate(2deg); }
-      }
-      .x-modal h2 { font: var(--type-title); margin: 0; padding-right: 48px; }
-      .x-modal p { margin: 0; font: var(--type-body); color: var(--text-secondary); }
-      .x-modal .x-cta { justify-self: stretch; }
+<section><div class="wrap">
+  <div class="sh reveal"><h2>Así las <span class="gtxt">hago</span></h2><p>Sin gelatina animal: aptas para vegetarianos y para quien no come cerdo.</p></div>
+  <div class="duo">
+    <div class="ph-card reveal"><img src="elab-1-guantes.jpg" alt="Vertiendo la mezcla en moldes" loading="lazy"><div class="cap"><h3>1. Cocino y vierto</h3><p>Pequeñas tandas, en cocina limpia.</p></div></div>
+    <div class="ph-card reveal"><img src="elab-2-guantes.jpg" alt="Desmoldando y azucarando" loading="lazy"><div class="cap"><h3>2. Desmoldo y azucaro</h3><p>Una por una, con guantes.</p></div></div>
+    <div class="ph-card reveal"><img src="elab-3-guantes.jpg" alt="Empacando en bolsitas" loading="lazy"><div class="cap"><h3>3. Empaco</h3><p>10 gomitas por bolsita de 80 g.</p></div></div>
+  </div>
+</div></section>
 
-      /* Carousel */
-      .x-carousel { margin: 0; }
-      .x-carousel__stage { position: relative; border-radius: var(--r-xl); overflow: hidden; height: clamp(280px, 46vw, 560px); background: var(--fill-tertiary); }
-      .x-carousel__stage img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; animation: x-fade 12s infinite; }
-      .x-carousel__stage img:nth-child(1) { animation-delay: 0s; }
-      .x-carousel__stage img:nth-child(2) { animation-delay: 6s; }
-      .x-carousel__stage:hover img { animation-play-state: paused; }
-      .x-carousel__stage img.x-crop-zoom { transform: scale(1.6); transform-origin: 70% 65%; }
-      @keyframes x-fade {
-        0% { opacity: 0; transform: scale(1.04); }
-        8% { opacity: 1; }
-        50% { opacity: 1; }
-        58% { opacity: 0; transform: scale(1); }
-        100% { opacity: 0; }
-      }
-      .x-carousel__dots { display: flex; gap: 6px; justify-content: center; padding-top: 12px; }
-      .x-carousel__dots span { width: 24px; height: 4px; border-radius: var(--r-pill); background: var(--stroke-primary); position: relative; overflow: hidden; }
-      .x-carousel__dots span::after { content: ""; position: absolute; inset: 0; background: var(--text-primary); transform: scaleX(0); transform-origin: left; animation: x-bar 12s linear infinite; }
-      .x-carousel__dots span:nth-child(2)::after { animation-delay: 6s; }
-      @keyframes x-bar { 0% { transform: scaleX(0); } 50% { transform: scaleX(1); opacity: 1; } 50.01%, 100% { opacity: 0; } }
-      .x-carousel figcaption { font-size: var(--size-caption); color: var(--text-secondary); padding: 10px 4px 0; text-align: center; }
+<section style="background:var(--bg2)"><div class="wrap">
+  <div class="sh reveal"><h2>Así de <span class="gtxt">fácil</span></h2></div>
+  <div class="feats">
+    <div class="ft reveal"><span class="ic">🛒</span><h3>1. Elige</h3><p>Agrega tus sabores al carrito con un toque.</p></div>
+    <div class="ft reveal"><span class="ic">📝</span><h3>2. Pide</h3><p>Escribe tu nombre y tu sector.</p></div>
+    <div class="ft reveal"><span class="ic">💬</span><h3>3. Envía</h3><p>Tu pedido se copia y me lo mandas por DM de TikTok.</p></div>
+    <div class="ft reveal"><span class="ic">🎉</span><h3>4. Disfruta</h3><p>Te confirmo por mensaje y coordinamos la entrega.</p></div>
+  </div>
+</div></section>
 
-      /* Reveal on scroll */
-      .x-motion .x-reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.8s var(--ease-out), transform 0.8s var(--ease-out); }
-      .x-motion .x-reveal.is-in { opacity: 1; transform: none; }
+<section><div class="wrap" style="text-align:center">
+  <div class="sh reveal"><h2>Sigue el <span class="gtxt">#DulceReto</span></h2><p>Emprendiendo desde cero en Venezuela. Gomita por gomita, hasta el primer millón.</p></div>
+  <a class="btn reveal" href="https://www.tiktok.com/@delossantospro" target="_blank" rel="noopener">🎬 Ver en TikTok</a>
+</div></section>
 
-      .x-motion .x-reveal { transition-delay: var(--delay, 0s); }
+<footer><span class="gtxt" style="font-weight:700">Gomitas Artesanales · hechas a mano por David</span><br>Imágenes ilustrativas creadas con IA. Precios en dólares.</footer>
 
-      /* Trust strip */
-      .x-trust {
-        list-style: none; margin: 0; padding: 18px 20px; display: grid;
-        grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px;
-        border-top: 1px solid var(--stroke-secondary); border-bottom: 1px solid var(--stroke-secondary);
-      }
-      .x-trust li { display: flex; align-items: center; gap: 12px; font: var(--type-label); color: var(--text-primary); }
-      .x-trust svg {
-        flex: none; width: 40px; height: 40px; padding: 9px; border-radius: 50%; background: var(--fill-tertiary);
-        fill: none; stroke: var(--text-primary); stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round;
-      }
-      @media (max-width: 900px) { .x-trust { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-      @media (max-width: 480px) { .x-trust { grid-template-columns: 1fr; padding: 16px 4px; } }
+<div class="fab"><button onclick="abrirCarrito()" id="fCart" aria-label="Carrito">🛍️<span class="ct" id="cCart"></span></button></div>
+<div class="drawer" id="dCart"><div class="ov" onclick="cerrar()"></div><div class="pn">
+  <header><h3>Tu pedido</h3><button class="x" onclick="cerrar()">✕</button></header>
+  <div class="ct2" id="cartBody"></div>
+</div></div>
+<div class="toast" id="toast"></div>
 
-      /* Moment cards */
-      .x-moments { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
-      .x-moment { display: flex; flex-direction: column; border-radius: var(--r-l); background: var(--fill-tertiary); overflow: hidden; }
-      .x-moment__media { margin: 0; aspect-ratio: 4 / 3; overflow: hidden; }
-      .x-moment__media img {
-        width: 100%; height: 100%; object-fit: cover; display: block;
-        transform: scale(1.1); transition: transform 1.6s var(--ease-out);
-      }
-      .x-moment.is-in .x-moment__media img, :root:not(.x-motion) .x-moment__media img { transform: scale(1); }
-      .x-moment:hover .x-moment__media img { transform: scale(1.06); transition-duration: 0.9s; }
-      .x-moment__body { padding: 20px 24px 24px; }
-      .x-moment h3 { font: var(--type-heading); margin: 0 0 6px; }
-      .x-moment p { margin: 0; font: var(--type-body); color: var(--text-secondary); }
-      .x-moment--text { justify-content: flex-end; }
-      .x-moment__deco { flex: 1; min-height: 160px; display: flex; align-items: center; justify-content: center; gap: 18px; }
-      @media (max-width: 900px) { .x-moments { grid-template-columns: 1fr; } .x-moment__deco { min-height: 120px; } }
-
-      @media (prefers-reduced-motion: reduce) {
-        .x-moment__media img, .x-moment:hover .x-moment__media img { transform: none; transition: none; }
-        .hero .hero__img.x-kenburns, .x-gummy, .x-carousel__dots span::after { animation: none; }
-        .x-cta, .x-gbtn, .x-flavors button { transition: none; }
-        .x-modal[open], .x-modal__stage img { animation: none; }
-        .x-carousel__stage { height: auto; display: grid; grid-template-columns: 1fr 1fr; gap: 12px; background: none; border-radius: 0; }
-        .x-carousel__stage img { position: static; opacity: 1; animation: none; height: clamp(200px, 32vw, 420px); border-radius: var(--r-l); }
-        .x-carousel__stage img.x-crop-zoom { transform: none; object-position: 75% 70%; }
-        .x-carousel__dots { display: none; }
-        .x-motion .x-reveal { opacity: 1; transform: none; transition: none; }
-      }
-    </style>
-  </head>
-  <body>
-    <div class="page" id="top">
-      <header class="nav glass" data-auto></header>
-      <main class="main">
-        <section class="hero">
-          <div class="x-hero-media"><img class="hero__img x-kenburns" src="hero-nino-centrado.jpg" alt="Niño sonriente comiendo gomitas, con una bolsita en la mano" /></div>
-          <div class="hero__copy">
-            <p class="hero__eyebrow">Productor artesanal</p>
-            <h1>La sonrisa más dulce, hecha a mano</h1>
-            <p class="hero__sub">Gomitas artesanales · Bolsita de 80 g (10 gomitas de muñequitos) a $1</p>
-            <a class="x-cta" href="https://www.tiktok.com/@delossantospro" target="_blank" rel="noopener">Sígueme en TikTok</a>
-          </div>
-        </section>
-
-        <div class="x-price x-reveal">
-          <section class="stats">
-            <div class="stat"><span class="stat__fig">$1</span><span class="stat__label">Bolsita de 80 g (10 gomitas de muñequitos) a $1</span></div>
-          </section>
-          <div class="x-float-gummies" role="group" aria-label="Toca un sabor">
-            <button type="button" class="x-gbtn x-gbtn--s" data-flavor="fresa" aria-label="Ver sabor Fresa" aria-haspopup="dialog"><span class="x-gummy x-gummy--bear" style="--g: var(--fill-system-red)"></span></button>
-            <button type="button" class="x-gbtn x-gbtn--s" data-flavor="limon" aria-label="Ver sabor Limón" aria-haspopup="dialog"><span class="x-gummy" style="--g: var(--chart-5); --d: -0.8s"></span></button>
-            <button type="button" class="x-gbtn x-gbtn--s" data-flavor="mora" aria-label="Ver sabor Mora" aria-haspopup="dialog"><span class="x-gummy x-gummy--bear" style="--g: var(--chart-4); --d: -1.6s"></span></button>
-            <button type="button" class="x-gbtn x-gbtn--s" data-flavor="naranja" aria-label="Ver sabor Naranja" aria-haspopup="dialog"><span class="x-gummy x-gummy--ring" style="--g: var(--fill-system-orange); --d: -2.4s"></span></button>
-            <button type="button" class="x-gbtn x-gbtn--s" data-flavor="menta" aria-label="Ver sabor Menta" aria-haspopup="dialog"><span class="x-gummy" style="--g: var(--fill-system-green); --d: -3.2s"></span></button>
-          </div>
-        </div>
-
-        <ul class="x-trust x-reveal" aria-label="Por qué elegirlas">
-          <li>
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 11V5.5a1.5 1.5 0 0 1 3 0V10m0-1.5v-4a1.5 1.5 0 0 1 3 0V10m0-3.5a1.5 1.5 0 0 1 3 0V11m0-2.5a1.5 1.5 0 0 1 3 0V15a6 6 0 0 1-6 6h-1.5a6 6 0 0 1-4.6-2.2L4.3 15.6a1.5 1.5 0 0 1 2.2-2L8 15"/></svg>
-            <span>Hechas a mano en pequeñas tandas</span>
-          </li>
-          <li>
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21c4.5-2 7-5.5 7-10V5c-3 0-5.5 1-7 3-1.5-2-4-3-7-3v6c0 4.5 2.5 8 7 10Z"/><path d="M12 8v13"/></svg>
-            <span>Con gelatina vegetal (agar)</span>
-          </li>
-          <li>
-            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="6.5" cy="6.5" r="2.5"/><circle cx="17.5" cy="6.5" r="2.5"/><circle cx="12" cy="14" r="7"/><circle cx="9.5" cy="12.5" r=".6"/><circle cx="14.5" cy="12.5" r=".6"/><path d="M10.5 16.5c.9.7 2.1.7 3 0"/></svg>
-            <span>Animalitos surtidos</span>
-          </li>
-          <li>
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.6 13.4 13.4 20.6a2 2 0 0 1-2.8 0L3 13V3h10l7.6 7.6a2 2 0 0 1 0 2.8Z"/><circle cx="7.5" cy="7.5" r="1.5"/></svg>
-            <span>Bolsita de 80 g (10 gomitas de muñequitos) a $1</span>
-          </li>
-        </ul>
-
-        <section class="section" id="momentos" data-nav="Momentos">
-          <div class="head">
-            <p class="head__eyebrow">Momentos</p>
-            <h2>Para cada momento feliz.</h2>
-          </div>
-          <div class="x-moments">
-            <article class="x-moment x-reveal">
-              <figure class="x-moment__media"><img src="mama-regalo.jpg" alt="Mamá regalando una cajita de gomitas a su hija" /></figure>
-              <div class="x-moment__body">
-                <h3>Un regalo que se recuerda</h3>
-                <p>Sorprende a tus hijos con una cajita de gomitas.</p>
-              </div>
-            </article>
-            <article class="x-moment x-reveal" style="--delay: 0.12s">
-              <figure class="x-moment__media"><img src="cumple-gomitas.jpg" alt="Fiesta de cumpleaños con bolsitas de gomitas como sorpresa" /></figure>
-              <div class="x-moment__body">
-                <h3>Cumpleaños y piñatas</h3>
-                <p>Bolsitas sorpresa con animalitos surtidos para tus invitados.</p>
-              </div>
-            </article>
-            <article class="x-moment x-moment--text x-reveal" style="--delay: 0.24s">
-              <div class="x-moment__deco" role="group" aria-label="Toca un sabor" style="gap: 4px; flex-wrap: wrap">
-                <button type="button" class="x-gbtn" data-flavor="fresa" aria-label="Ver sabor Fresa" aria-haspopup="dialog"><span class="x-gummy x-gummy--bear" style="--g: var(--fill-system-red)"></span></button>
-                <button type="button" class="x-gbtn" data-flavor="limon" aria-label="Ver sabor Limón" aria-haspopup="dialog"><span class="x-gummy" style="--g: var(--chart-5); --d: -1s"></span></button>
-                <button type="button" class="x-gbtn" data-flavor="mora" aria-label="Ver sabor Mora" aria-haspopup="dialog"><span class="x-gummy x-gummy--bear" style="--g: var(--chart-4); --d: -2s"></span></button>
-                <button type="button" class="x-gbtn" data-flavor="naranja" aria-label="Ver sabor Naranja" aria-haspopup="dialog"><span class="x-gummy x-gummy--ring" style="--g: var(--fill-system-orange); --d: -3s"></span></button>
-                <button type="button" class="x-gbtn" data-flavor="menta" aria-label="Ver sabor Menta" aria-haspopup="dialog"><span class="x-gummy" style="--g: var(--fill-system-green); --d: -3.6s"></span></button>
-              </div>
-              <div class="x-moment__body">
-                <h3>Para la merienda</h3>
-                <p>El antojo perfecto para el recreo o la tarde.</p>
-              </div>
-            </article>
-          </div>
-        </section>
-
-        <section class="section" id="sabores" data-nav="Sabores">
-          <div class="head">
-            <p class="head__eyebrow">Sabores</p>
-            <h2>Cinco sabores frutales y frescos.</h2>
-          </div>
-          <ul class="x-flavors x-reveal">
-            <li><button type="button" data-flavor="fresa" aria-haspopup="dialog"><span class="x-gummy x-gummy--bear" style="--g: var(--fill-system-red)" aria-hidden="true"></span><span>Fresa</span><small>Ver bolsita</small></button></li>
-            <li><button type="button" data-flavor="limon" aria-haspopup="dialog"><span class="x-gummy" style="--g: var(--chart-5); --d: -0.8s" aria-hidden="true"></span><span>Limón</span><small>Ver bolsita</small></button></li>
-            <li><button type="button" data-flavor="mora" aria-haspopup="dialog"><span class="x-gummy x-gummy--bear" style="--g: var(--chart-4); --d: -1.6s" aria-hidden="true"></span><span>Mora</span><small>Ver bolsita</small></button></li>
-            <li><button type="button" data-flavor="naranja" aria-haspopup="dialog"><span class="x-gummy x-gummy--ring" style="--g: var(--fill-system-orange); --d: -2.4s" aria-hidden="true"></span><span>Naranja</span><small>Ver bolsita</small></button></li>
-            <li><button type="button" data-flavor="menta" aria-haspopup="dialog"><span class="x-gummy" style="--g: var(--fill-system-green); --d: -3.2s" aria-hidden="true"></span><span>Menta</span><small>Ver bolsita</small></button></li>
-          </ul>
-          <p class="fineprint">Toca un sabor para ver su bolsita. Pregunta qué sabores hay esta semana.</p>
-        </section>
-
-        <section class="section" id="elaboracion" data-nav="Así las hago">
-          <div class="head">
-            <p class="head__eyebrow">Así las hago</p>
-            <h2>Tres pasos, todo a mano.</h2>
-            <p class="head__sub">Sin gelatina animal, aptas para vegetarianos y para quien no come cerdo, y no se derriten con el calor.</p>
-          </div>
-          <div class="steps">
-            <article class="step x-reveal">
-              <figure class="step__figure"><img src="elab-1-guantes.jpg" alt="Manos con guantes vertiendo la mezcla de gomitas en los moldes" /></figure>
-              <div class="step__intro"><p class="step__num">01</p><p class="step__eyebrow">Cocinar</p></div>
-              <div><h3>Cocino y vierto en moldes</h3></div>
-            </article>
-            <article class="step x-reveal">
-              <figure class="step__figure"><img src="elab-2-guantes.jpg" alt="Manos con guantes desmoldando gomitas y pasándolas por azúcar" /></figure>
-              <div class="step__intro"><p class="step__num">02</p><p class="step__eyebrow">Azucarar</p></div>
-              <div><h3>Desmoldo y las paso por azúcar</h3></div>
-            </article>
-            <article class="step x-reveal">
-              <figure class="step__figure"><img src="elab-3-guantes.jpg" alt="Manos con guantes empacando gomitas en bolsitas" /></figure>
-              <div class="step__intro"><p class="step__num">03</p><p class="step__eyebrow">Empacar</p></div>
-              <div><h3>Las empaco en bolsitas</h3><p>Bolsita de 80 g (10 gomitas de muñequitos) a $1</p></div>
-            </article>
-          </div>
-          <p class="fineprint">Siempre con guantes y en cocina limpia.</p>
-        </section>
-
-        <section class="section" id="presentaciones" data-nav="Presentaciones">
-          <div class="head">
-            <p class="head__eyebrow">Presentaciones</p>
-            <h2>Listas para regalar y compartir.</h2>
-          </div>
-          <figure class="x-carousel x-reveal">
-            <div class="x-carousel__stage">
-              <img src="presentaciones-artesanal.jpg" alt="Gomitas artesanales en caja kraft, doypack y bolsitas con stickers de animalitos" />
-              <img src="presentaciones-artesanal.jpg" class="x-crop-zoom" alt="Detalle de las bolsitas de gomitas con stickers de animalitos" />
-            </div>
-            <div class="x-carousel__dots" aria-hidden="true"><span></span><span></span></div>
-            <figcaption>Caja kraft, doypack y bolsitas con animalitos surtidos.</figcaption>
-          </figure>
-        </section>
-
-        <section class="section" id="dulcereto" data-nav="#DulceReto">
-          <div class="head">
-            <p class="head__eyebrow">Sigue el #DulceReto</p>
-            <h2>Emprendiendo desde cero en Venezuela.</h2>
-          </div>
-          <div class="pair x-reveal">
-            <div class="prose">
-              <p>Documento cada día de mi emprendimiento desde cero. Gomita por gomita, hasta el primer millón.</p>
-            </div>
-            <aside class="callout" aria-label="Sígueme">
-              <p class="callout__head"><span class="x-gummy x-gummy--bear" style="--g: var(--chart-7); width: 16px; height: 18px" aria-hidden="true"></span> David</p>
-              <p class="callout__lead"><strong>Mira cómo nace cada tanda.</strong> Nuevos videos en TikTok.</p>
-              <a class="x-cta" href="https://www.tiktok.com/@delossantospro" target="_blank" rel="noopener">Ver en TikTok @delossantospro</a>
-            </aside>
-          </div>
-        </section>
-      </main>
-      <footer class="foot">
-        <p>Gomitas hechas a mano por David. #DulceReto</p>
-        <nav aria-label="Volver a las secciones" data-auto></nav>
-        <a class="badge" href="https://hark.com/" target="_blank" rel="noopener"><span class="hark-mark"></span><span>built by hark</span></a>
-      </footer>
-    </div>
-    <dialog class="x-modal" id="x-flavor" aria-modal="true" aria-labelledby="x-flavor-title" aria-describedby="x-flavor-text">
-      <div class="x-modal__inner">
-        <button type="button" class="x-modal__close" aria-label="Cerrar">×</button>
-        <figure class="x-modal__stage">
-          <img src="sabor80-fresa.jpg" data-flavor-img="fresa" alt="Bolsita de gomitas sabor fresa, 80 g" hidden />
-          <img src="sabor80-limon.jpg" data-flavor-img="limon" alt="Bolsita de gomitas sabor limón, 80 g" hidden />
-          <img src="sabor80-mora.jpg" data-flavor-img="mora" alt="Bolsita de gomitas sabor mora, 80 g" hidden />
-          <img src="sabor80-naranja.jpg" data-flavor-img="naranja" alt="Bolsita de gomitas sabor naranja, 80 g" hidden />
-          <img src="sabor80-menta.jpg" data-flavor-img="menta" alt="Bolsita de gomitas sabor menta, 80 g" hidden />
-        </figure>
-        <h2 id="x-flavor-title">Fresa</h2>
-        <p id="x-flavor-text">Bolsita de fresa · 80 g · 10 gomitas de muñequitos · $1</p>
-        <a class="x-cta" href="https://www.tiktok.com/@delossantospro" target="_blank" rel="noopener">Pídela por TikTok</a>
-      </div>
-    </dialog>
-    <script src="hark.js"></script>
-    <script>
-      (function () {
-        var names = { fresa: "Fresa", limon: "Limón", mora: "Mora", naranja: "Naranja", menta: "Menta" };
-        var dlg = document.getElementById("x-flavor");
-        var title = document.getElementById("x-flavor-title");
-        var text = document.getElementById("x-flavor-text");
-        var imgs = dlg.querySelectorAll("[data-flavor-img]");
-        var lastTrigger = null;
-        function focusables() {
-          return Array.prototype.filter.call(dlg.querySelectorAll("button, a[href]"), function (el) { return el.offsetParent !== null; });
-        }
-        function open(key, trigger) {
-          var name = names[key]; if (!name) return;
-          lastTrigger = trigger;
-          title.textContent = name;
-          text.textContent = "Bolsita de " + name.toLowerCase() + " · 80 g · 10 gomitas de muñequitos · $1";
-          imgs.forEach(function (img) { img.hidden = img.getAttribute("data-flavor-img") !== key; });
-          if (typeof dlg.showModal === "function") dlg.showModal(); else dlg.setAttribute("open", "");
-          dlg.querySelector(".x-modal__close").focus();
-        }
-        function close() {
-          if (typeof dlg.close === "function" && dlg.open) dlg.close(); else dlg.removeAttribute("open");
-        }
-        dlg.addEventListener("close", function () { if (lastTrigger) lastTrigger.focus(); });
-        document.querySelectorAll("[data-flavor]").forEach(function (btn) {
-          btn.addEventListener("click", function () { open(btn.getAttribute("data-flavor"), btn); });
-        });
-        dlg.querySelector(".x-modal__close").addEventListener("click", close);
-        dlg.addEventListener("click", function (e) { if (e.target === dlg) close(); });
-        dlg.addEventListener("keydown", function (e) {
-          if (e.key === "Escape") { e.preventDefault(); close(); return; }
-          if (e.key !== "Tab") return;
-          var f = focusables(); if (!f.length) return;
-          var first = f[0], last = f[f.length - 1];
-          if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
-          else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
-        });
-      })();
-    </script>
-    <script>
-      (function () {
-        if (window.matchMedia("(prefers-reduced-motion: reduce)").matches || !("IntersectionObserver" in window)) return;
-        document.documentElement.classList.add("x-motion");
-        var io = new IntersectionObserver(function (entries) {
-          entries.forEach(function (e) {
-            if (e.isIntersecting) { e.target.classList.add("is-in"); io.unobserve(e.target); }
-          });
-        }, { threshold: 0.12, rootMargin: "0px 0px -40px 0px" });
-        document.querySelectorAll(".x-reveal").forEach(function (el) { io.observe(el); });
-      })();
-    </script>
-  </body>
+<script>
+const TIENDA = { id: 'clientes', tipo: 'al detal', productos: [
+  { id: 'fresa', n: 'Bolsita Fresa', d: '80 g · 10 gomitas', p: 1, img: 'sabor80-fresa.jpg', tag: 'Favorita' },
+  { id: 'limon', n: 'Bolsita Limón', d: '80 g · 10 gomitas', p: 1, img: 'sabor80-limon.jpg' },
+  { id: 'mora', n: 'Bolsita Mora', d: '80 g · 10 gomitas', p: 1, img: 'sabor80-mora.jpg' },
+  { id: 'naranja', n: 'Bolsita Naranja', d: '80 g · 10 gomitas', p: 1, img: 'sabor80-naranja.jpg' },
+  { id: 'menta', n: 'Bolsita Menta', d: '80 g · 10 gomitas', p: 1, img: 'sabor80-menta.jpg' },
+  { id: 'caja-ventana', n: 'Caja con ventana', d: '160 g · 20 gomitas', p: 2, img: '../vendedores/pres-caja-ventana.jpg' },
+  { id: 'caja-regalo', n: 'Caja de regalo con lazo', d: '200 g · 25 gomitas', p: 2.5, img: '../vendedores/pres-caja-regalo.jpg', tag: 'Para regalar' },
+  { id: 'caja-4', n: 'Caja de 4 sabores', d: '240 g · 30 gomitas', p: 3, img: '../vendedores/pres-caja-4-sabores.jpg' }
+]};
+</script>
+<script src="../lujo.js"></script>
+</body>
 </html>
