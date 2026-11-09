@@ -1,7 +1,7 @@
 /* Tienda de lujo · gomitas artesanales. Configura TIENDA en cada página. */
 // Todas las compras se hacen por mensaje directo (DM) de Instagram (respuesta automática con ManyChat).
-const TIKTOK = 'https://www.tiktok.com/@delossantospro';
-const IG_DM = 'https://ig.me/m/dunigshop'; // abre el chat de Instagram directo
+const TIKTOK = 'https://www.tiktok.com/@sigan.probando';
+const IG_DM = 'https://ig.me/m/sigan.probando'; // abre el chat de Instagram directo
 
 const $ = s => document.querySelector(s);
 const money = n => '$' + Number(n).toFixed(2).replace('.', ',').replace(',00', '');
